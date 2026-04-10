@@ -34,6 +34,20 @@
             overflow-x: hidden;
         }
 
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -196,12 +210,33 @@
         .hero-visual {
             text-align: center;
             color: var(--gold);
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Musical staff decoration */
+        .staff-deco {
+            position: absolute;
+            width: 140%;
+            left: -20%;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            opacity: 0.1;
+        }
+
+        .staff-line {
+            height: 1px;
+            background: var(--gold-light);
         }
 
         .hero-note {
-            font-size: 15rem;
-            opacity: 0.15;
-            animation: pulse 4s ease-in-out infinite;
+            font-size: 22rem;
+            opacity: 0.08;
+            animation: pulse 5s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-year-badge {
@@ -757,6 +792,13 @@
         </div>
         <div class="hero-right">
             <div class="hero-visual">
+                <div class="staff-deco">
+                    <div class="staff-line"></div>
+                    <div class="staff-line"></div>
+                    <div class="staff-line"></div>
+                    <div class="staff-line"></div>
+                    <div class="staff-line"></div>
+                </div>
                 <div class="hero-note">𝄞</div>
             </div>
             <div class="hero-year-badge">
