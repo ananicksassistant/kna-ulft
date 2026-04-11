@@ -3,1290 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fanfare Kunst Na Arbeid Ulft - Al meer dan 100 jaar muziek in de Achterhoek. Concerten, straatoptredens, muziekonderwijs.">
     <title>Fanfare KNA Ulft | Kunst Na Arbeid sinds 1919</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1a1a2e;
             --secondary: #16213e;
             --gold: #d4af37;
             --gold-light: #f4e4c1;
-            --gold-dark: #b8941f;
             --cream: #faf8f3;
             --white: #ffffff;
-            --text: #2d2d2d;
-            --text-light: #666666;
-            --accent: #c9a227;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        
         body {
             font-family: 'Inter', sans-serif;
             background: var(--cream);
-            color: var(--text);
+            color: var(--primary);
             line-height: 1.6;
-            overflow-x: hidden;
         }
-
-        /* Premium Grain Overlay */
-        .grain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
+        
         /* Navigation */
-        .navbar {
+        nav {
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1.5rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.4s ease;
-            background: transparent;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
-
-        .navbar.scrolled {
-            background: rgba(250, 248, 243, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
-            padding: 1rem 5%;
-        }
-
+        
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .logo-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
         }
-
-        .logo-text span {
+        
+        .logo span {
             color: var(--gold);
         }
-
+        
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
             list-style: none;
         }
-
+        
         .nav-links a {
             text-decoration: none;
-            color: var(--text);
+            color: var(--primary);
             font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            position: relative;
             transition: color 0.3s;
         }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s;
-        }
-
+        
         .nav-links a:hover {
             color: var(--gold);
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            background: var(--gold);
-            color: var(--primary);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .nav-cta:hover {
-            background: var(--gold-dark);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Hero Section */
+        
+        /* Hero */
         .hero {
             min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
-            padding-top: 100px;
         }
-
-        .hero-bg-pattern {
+        
+        .hero::before {
+            content: '🎺';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.1) 35px, rgba(212, 175, 55, 0.1) 70px);
+            font-size: 30rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-
+        
         .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
             position: relative;
             z-index: 1;
         }
-
-        .hero-text {
-            color: white;
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1rem;
         }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid var(--gold);
+        
+        .hero h1 em {
             color: var(--gold);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
+            font-style: normal;
         }
-
-        .hero-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-title em {
-            color: var(--gold);
-            font-style: italic;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
             opacity: 0.9;
-            max-width: 500px;
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-gold {
+        
+        .btn-primary {
             background: var(--gold);
             color: var(--primary);
             padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: inline-block;
             transition: all 0.3s;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
         }
-
-        .btn-gold:hover {
+        
+        .btn-primary:hover {
             background: var(--gold-light);
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
         }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            border: 2px solid rgba(255,255,255,0.3);
-            transition: all 0.3s;
-        }
-
-        .btn-outline:hover {
-            border-color: white;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .hero-visual {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-circle {
-            width: 450px;
-            height: 450px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: rotate 60s linear infinite;
-        }
-
-        .hero-circle::before {
-            content: '';
-            position: absolute;
-            width: 380px;
-            height: 380px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 50%;
-        }
-
-        .hero-circle::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 50%;
-        }
-
-        .hero-note {
-            font-size: 12rem;
-            color: var(--gold);
-            opacity: 0.3;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        .hero-year {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: var(--gold);
-            color: var(--primary);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .hero-year .number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            display: block;
-            line-height: 1;
-        }
-
-        .hero-year .label {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.4; }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
+        
+        /* Stats */
+        .stats {
             background: var(--primary);
             padding: 4rem 5%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
+            gap: 2rem;
             text-align: center;
-        }
-
-        .stat-item {
             color: white;
-            position: relative;
         }
-
-        .stat-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 60px;
-            background: rgba(212, 175, 55, 0.3);
-        }
-
-        .stat-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
-            font-weight: 700;
+        
+        .stat h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
             color: var(--gold);
-            line-height: 1;
         }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-top: 0.5rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        
+        /* Sections */
+        section {
+            padding: 5rem 5%;
         }
-
-        /* Section Styles */
-        .section {
-            padding: 8rem 5%;
-        }
-
+        
         .section-header {
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 5rem;
+            margin-bottom: 3rem;
         }
-
-        .section-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gold);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .section-tag::before {
-            content: '';
-            width: 30px;
-            height: 2px;
-            background: var(--gold);
-        }
-
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
             color: var(--primary);
-            margin-bottom: 1.5rem;
         }
-
-        .section-text {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        /* About Section */
-        .about {
-            background: var(--white);
-        }
-
-        .about-grid {
-            max-width: 1400px;
-            margin: 0 auto;
+        
+        /* Activiteiten Grid */
+        .activiteiten-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-        }
-
-        .about-image {
-            position: relative;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            left: -30px;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--gold);
-            border-radius: 20px;
-            z-index: -1;
-        }
-
-        .about-img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-        }
-
-        .about-content h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content h2 span {
-            color: var(--gold);
-        }
-
-        .about-content p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.9;
-        }
-
-        .about-features {
-            display: grid;
-            gap: 1rem;
-            margin-top: 2.5rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--cream);
-            border-radius: 12px;
-            transition: all 0.3s;
-        }
-
-        .feature-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gold);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
-        }
-
-        /* Activities Section */
-        .activities {
-            background: var(--cream);
-        }
-
-        .activities-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-        }
-
-        .activity-card {
-            background: var(--white);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .activity-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-        }
-
-        .activity-header {
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .activity-header::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        .activity-icon {
-            font-size: 4rem;
-            z-index: 1;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
-        }
-
-        .activity-content {
-            padding: 2rem;
-        }
-
-        .activity-content h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-        }
-
-        .activity-content p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        /* Agenda Section */
-        .agenda {
-            background: var(--primary);
-            color: white;
-        }
-
-        .agenda .section-title {
-            color: white;
-        }
-
-        .agenda-list {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .agenda-item {
-            display: grid;
-            grid-template-columns: 120px 1fr auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            align-items: center;
-            padding: 2rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            border-left: 4px solid var(--gold);
-            transition: all 0.3s;
         }
-
-        .agenda-item:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(10px);
-        }
-
-        .agenda-date {
-            text-align: center;
-        }
-
-        .agenda-day {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--gold);
-            line-height: 1;
-        }
-
-        .agenda-month {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
-        }
-
-        .agenda-info h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .agenda-info p {
-            opacity: 0.6;
-            font-size: 0.95rem;
-        }
-
-        .agenda-tag {
-            background: var(--gold);
-            color: var(--primary);
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Education Section */
-        .education {
-            background: var(--white);
-        }
-
-        .education-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 6rem;
-            align-items: start;
-        }
-
-        .education-content p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            line-height: 1.9;
-            margin-bottom: 2rem;
-        }
-
-        .program-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .program-card {
-            background: var(--cream);
-            padding: 2.5rem;
-            border-radius: 20px;
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-            border-left: 4px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .program-card:hover {
-            border-left-color: var(--gold);
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .program-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gold);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .program-info h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .program-info p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            padding: 6rem 5%;
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            color: rgba(26, 26, 46, 0.8);
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn-white {
+        
+        .activiteit-card {
             background: white;
-            color: var(--primary);
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: inline-flex;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .activiteit-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .activiteit-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .activiteit-header .date {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .activiteit-content {
+            padding: 1.5rem;
+        }
+        
+        /* Bestuur Grid */
+        .bestuur-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .bestuurslid-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .bestuurslid-card .avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
             align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            justify-content: center;
+            font-size: 3rem;
         }
-
-        .btn-white:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
         }
-
+        
         /* Footer */
         footer {
             background: var(--primary);
             color: white;
-            padding: 5rem 5% 2rem;
-        }
-
-        .footer-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .footer-brand .logo-text {
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-brand p {
-            opacity: 0.7;
-            line-height: 1.8;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            color: var(--gold);
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-col a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-col a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 2rem;
+            padding: 3rem 5%;
             text-align: center;
-            opacity: 0.6;
-            font-size: 0.9rem;
         }
-
+        
         /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content,
-            .about-grid,
-            .education-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .activities-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stats-bar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stat-item:not(:last-child)::after {
-                display: none;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-
-            .hero-circle {
-                width: 300px;
-                height: 300px;
-            }
-
-            .hero-note {
-                font-size: 6rem;
-            }
-
-            .activities-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .agenda-item {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .agenda-tag {
-                justify-self: center;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <div class="grain-overlay"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <a href="#" class="logo">
-            <div class="logo-icon">KNA</div>
-            <div class="logo-text">Kunst Na <span>Arbeid</span></div>
-        </a>
+    <nav>
+        <div class="logo">KNA <span>Ulft</span></div>
         <ul class="nav-links">
-            <li><a href="#over">Over ons</a></li>
-            <li><a href="#activiteiten">Activiteiten</a></li>
-            <li><a href="#agenda">Agenda</a></li>
-            <li><a href="#onderwijs">Muziekonderwijs</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#activiteiten">Agenda</a></li>
+            <li><a href="#nieuws">Nieuws</a></li>
+            <li><a href="#bestuur">Bestuur</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#contact" class="nav-cta">Word lid</a>
     </nav>
-
-    <!-- Hero Section -->
+    
     <section class="hero" id="home">
-        <div class="hero-bg-pattern"></div>
         <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">
-                    <i class="fas fa-music"></i> Sinds 1919
-                </div>
-                <h1 class="hero-title">
-                    Al meer dan<br>
-                    <em>100 jaar</em><br>
-                    muziek in de<br>
-                    Achterhoek
-                </h1>
-                <p class="hero-subtitle">
-                    De gezelligste fanfare van de Achterhoek. Wij spelen voor iedereen — 
-                    van jong tot oud, beginner tot gevorderd.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn-gold">
-                        <i class="fas fa-user-plus"></i> Word lid
-                    </a>
-                    <a href="#activiteiten" class="btn-outline">
-                        Ontdek KNA <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-circle">
-                    <div class="hero-note">𝄞</div>
-                </div>
-                <div class="hero-year">
-                    <span class="number">106</span>
-                    <span class="label">Jaar traditie</span>
-                </div>
-            </div>
+            <h1>Al meer dan<br><em>100 jaar</em><br>muziek in de Achterhoek</h1>
+            <p>Fanfare Kunst Na Arbeid Ulft - De gezelligste fanfare van de regio. Van jong tot oud, beginner tot gevorderd.</p>
+            <a href="#activiteiten" class="btn-primary">Bekijk onze agenda</a>
         </div>
     </section>
-
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">106</div>
-            <div class="stat-label">Jaar traditie</div>
+    
+    <div class="stats">
+        <div class="stat">
+            <h3>106</h3>
+            <p>Jaar traditie</p>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">~35</div>
-            <div class="stat-label">Actieve leden</div>
+        <div class="stat">
+            <h3>~35</h3>
+            <p>Actieve leden</p>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">4+</div>
-            <div class="stat-label">Optredens / jaar</div>
+        <div class="stat">
+            <h3>4+</h3>
+            <p>Optredens per jaar</p>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">∞</div>
-            <div class="stat-label">Gezelligheid</div>
+        <div class="stat">
+            <h3>∞</h3>
+            <p>Gezelligheid</p>
         </div>
     </div>
-
-    <!-- About Section -->
-    <section class="section about" id="over">
-        <div class="about-grid">
-            <div class="about-image">
-                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); height: 500px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 5rem;">
-                    🎺
-                </div>
-            </div>
-            <div class="about-content">
-                <span class="section-tag">Over ons</span>
-                <h2>Muziek voor<br><span>iedereen</span> in Ulft</h2>
-                <p>
-                    Fanfare KNA — Kunst Na Arbeid — is al meer dan honderd jaar de muzikale 
-                    trots van Ulft. Opgericht op <strong>15 augustus 1919</strong> door pastoor 
-                    Jan Wijtze de Vries en 12 parochianen.
-                </p>
-                <p>
-                    Onder leiding van dirigente <strong>Henrite Jansma-Rusch</strong> genieten 
-                    we sinds 2016 van nieuw elan en stijgend niveau. We repeteren elke 
-                    <strong>maandagavond van 19:30 tot 21:30</strong> in clubgebouw 'de Key'.
-                </p>
-                <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-users"></i></div>
-                        <span>Voor alle leeftijden</span>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-award"></i></div>
-                        <span>Koninklijke Erepenning 2019</span>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fas fa-heart"></i></div>
-                        <span>Gezelligheid staat voorop</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Activities Section -->
-    <section class="section activities" id="activiteiten">
+    
+    <section id="activiteiten">
         <div class="section-header">
-            <span class="section-tag">Wat we doen</span>
-            <h2 class="section-title">Onze Activiteiten</h2>
-            <p class="section-text">Van traditionele concerten tot sfeervolle straatoptredens</p>
+            <h2>📅 Aankomende Activiteiten</h2>
+            <p>Bekijk waar je ons kunt bewonderen</p>
         </div>
-        <div class="activities-grid">
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🎺</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Concerten</h3>
-                    <p>Meerdere keren per jaar verzorgen we concerten, waaronder het Nieuwjaarsconcert in het CIVON Innovatiecentrum.</p>
-                </div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🥁</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Straatoptredens</h3>
-                    <p>Carnaval, Koningsdag, Avondvierdaagse en Oerse Kermis — vier keer per jaar trekken we de straat op.</p>
-                </div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🎶</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Repetities</h3>
-                    <p>Elke maandagavond van 19:30 tot 21:30 uur in clubgebouw 'de Key' aan de Frank Daamenstraat 39a.</p>
-                </div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🎓</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Muzipluz!</h3>
-                    <p>Beginnersopleiding voor jong en oud. Samen muziek maken in een warm en inclusief klimaat.</p>
-                </div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🌟</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Muzikidz!</h3>
-                    <p>Speciaal jeugdprogramma opgezet door onze dirigente. Spelenderwijs een instrument leren.</p>
-                </div>
-            </div>
-            <div class="activity-card">
-                <div class="activity-header">
-                    <div class="activity-icon">🍺</div>
-                </div>
-                <div class="activity-content">
-                    <h3>Gezelligheid</h3>
-                    <p>KNA is meer dan muziek — het is een hechte gemeenschap. Borrels, uitjes en samenzijn.</p>
-                </div>
-            </div>
+        <div class="activiteiten-grid" id="activiteiten-container">
+            <div class="loading">Activiteiten laden...</div>
         </div>
     </section>
-
-    <!-- Agenda Section -->
-    <section class="section agenda" id="agenda">
+    
+    <section id="nieuws" style="background: white;">
         <div class="section-header">
-            <span class="section-tag">Agenda 2025</span>
-            <h2 class="section-title">Komende Evenementen</h2>
+            <h2>📰 Laatste Nieuws</h2>
+            <p>Wat is er nieuw bij KNA</p>
         </div>
-        <div class="agenda-list">
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <div class="agenda-day">2</div>
-                    <div class="agenda-month">MRT</div>
-                </div>
-                <div class="agenda-info">
-                    <h3>Carnavalsoptocht Ulft</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Ulft centrum</p>
-                </div>
-                <span class="agenda-tag">Straatoptreden</span>
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <div class="agenda-day">5</div>
-                    <div class="agenda-month">MEI</div>
-                </div>
-                <div class="agenda-info">
-                    <h3>Bevrijdingsconcert</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Kerk Varsselder-Veldhunten</p>
-                </div>
-                <span class="agenda-tag">Concert</span>
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <div class="agenda-day">18</div>
-                    <div class="agenda-month">MEI</div>
-                </div>
-                <div class="agenda-info">
-                    <h3>Schuttersconcours</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> VV Ulftse Boys</p>
-                </div>
-                <span class="agenda-tag">Optreden</span>
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <div class="agenda-day">7</div>
-                    <div class="agenda-month">JUN</div>
-                </div>
-                <div class="agenda-info">
-                    <h3>Ulftse Avondvierdaagse</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Zwarte Plein, Ulft</p>
-                </div>
-                <span class="agenda-tag">Mars</span>
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <div class="agenda-day">30</div>
-                    <div class="agenda-month">NOV</div>
-                </div>
-                <div class="agenda-info">
-                    <h3>Najaarsconcert</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> CIVON Innovatiecentrum • 14:00</p>
-                </div>
-                <span class="agenda-tag">Concert</span>
-            </div>
+        <div class="activiteiten-grid" id="nieuws-container">
+            <div class="loading">Nieuws laden...</div>
         </div>
     </section>
-
-    <!-- Education Section -->
-    <section class="section education" id="onderwijs">
-        <div class="education-grid">
-            <div class="education-content">
-                <span class="section-tag">Muziekonderwijs</span>
-                <h2 class="section-title">Leer muziek<br>maken bij KNA</h2>
-                <p>
-                    Muziek leren is het leukst als je het samen doet. Bij KNA hoef je niet 
-                    in je eentje te oefenen — je groeit samen met andere muzikanten van alle 
-                    leeftijden.
-                </p>
-                <p>
-                    Na behalen van je <strong>A-diploma</strong> stroom je door naar het A-orkest. 
-                    Iedereen vindt een plek binnen onze fanfare!
-                </p>
-                <a href="#contact" class="btn-gold" style="margin-top: 1rem;">
-                    <i class="fas fa-info-circle"></i> Meer informatie
-                </a>
-            </div>
-            <div class="program-cards">
-                <div class="program-card">
-                    <div class="program-icon">🎵</div>
-                    <div class="program-info">
-                        <h3>Muzipluz! — Beginnerslessen</h3>
-                        <p>Jong en oud leren samen muziek maken. Geen ervaring nodig — alleen enthousiasme!</p>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-icon">🌟</div>
-                    <div class="program-info">
-                        <h3>Muzikidz! — Jeugdmuziek</h3>
-                        <p>Speciaal voor kinderen: een eigen plek binnen KNA om spelenderwijs een instrument te leren.</p>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-icon">🎺</div>
-                    <div class="program-info">
-                        <h3>Opleidingsorkest (B-orkest)</h3>
-                        <p>Alle leerlingen spelen samen. Zo leer je van en met elkaar.</p>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-icon">♿</div>
-                    <div class="program-info">
-                        <h3>Maatwerk voor iedereen</h3>
-                        <p>We zoeken altijd een oplossing die bij jou past. Inclusiviteit staat centraal.</p>
-                    </div>
-                </div>
-            </div>
+    
+    <section id="bestuur">
+        <div class="section-header">
+            <h2>👥 Ons Bestuur</h2>
+            <p>De mensen achter de muziek</p>
+        </div>
+        <div class="bestuur-grid" id="bestuur-container">
+            <div class="loading">Bestuur laden...</div>
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="cta" id="contact">
-        <div class="cta-content">
-            <h2>Word lid van KNA Ulft</h2>
-            <p>Wil je een keer komen kijken? Een instrument leren? Of direct lid worden? We nemen graag contact met je op.</p>
-            <a href="mailto:info@kna-ulft.nl" class="btn-white">
-                <i class="fas fa-envelope"></i> Stuur een bericht
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo-text">KNA <span>Ulft</span></div>
-                <p>Fanfare Kunst Na Arbeid — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Navigatie</h4>
-                <ul>
-                    <li><a href="#over">Over KNA</a></li>
-                    <li><a href="#activiteiten">Activiteiten</a></li>
-                    <li><a href="#agenda">Agenda</a></li>
-                    <li><a href="#onderwijs">Muziekonderwijs</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <ul>
-                    <li><a href="mailto:info@kna-ulft.nl">info@kna-ulft.nl</a></li>
-                    <li><a href="https://www.kna-ulft.nl">www.kna-ulft.nl</a></li>
-                    <li><a href="https://www.facebook.com/FanfareKnaUlft"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="https://www.instagram.com/fanfare_kna_ulft/"><i class="fab fa-instagram"></i> Instagram</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Locatie</h4>
-                <ul>
-                    <li>Clubgebouw 'de Key'</li>
-                    <li>Frank Daamenstraat 39a</li>
-                    <li>7071 AV Ulft</li>
-                    <li><i class="fas fa-clock"></i> Ma 19:30–21:30</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Fanfare KNA Ulft · Kunst Na Arbeid · KvK: 40121537 · SBBI-status</p>
-        </div>
+    
+    <footer id="contact">
+        <h2>Contact</h2>
+        <p>Fanfare Kunst Na Arbeid Ulft</p>
+        <p>Clubgebouw 'de Key' - Frank Daamenstraat 39a, 7071 AV Ulft</p>
+        <p>Email: info@kna-ulft.nl | Tel: 06-49636660</p>
+        <p style="margin-top: 2rem; opacity: 0.6;">&copy; 2025 KNA Ulft. Gebouwd met ❤️ door Ana</p>
     </footer>
-
+    
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // API Base URL
+        const API_URL = 'http://localhost:8000/api';
+        
+        // Load Activiteiten
+        async function loadActiviteiten() {
+            try {
+                const response = await fetch(`${API_URL}/activiteiten`);
+                const data = await response.json();
+                const container = document.getElementById('activiteiten-container');
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<p>Geen activiteiten gevonden.</p>';
+                    return;
                 }
-            });
+                
+                container.innerHTML = data.map(item => `
+                    <div class="activiteit-card">
+                        <div class="activiteit-header">
+                            <div class="date">${new Date(item.datum).getDate()}</div>
+                            <div>${new Date(item.datum).toLocaleDateString('nl-NL', {month: 'short'})}</div>
+                        </div>
+                        <div class="activiteit-content">
+                            <h3>${item.titel}</h3>
+                            <p>${item.beschrijving || ''}</p>
+                            <p><strong>📍</strong> ${item.locatie || 'TBA'}</p>
+                            <p><strong>🕐</strong> ${item.tijd || 'TBA'}</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading activiteiten:', error);
+                document.getElementById('activiteiten-container').innerHTML = 
+                    '<p>Kon activiteiten niet laden. Probeer later opnieuw.</p>';
+            }
+        }
+        
+        // Load Nieuws
+        async function loadNieuws() {
+            try {
+                const response = await fetch(`${API_URL}/nieuws`);
+                const data = await response.json();
+                const container = document.getElementById('nieuws-container');
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<p>Geen nieuws gevonden.</p>';
+                    return;
+                }
+                
+                container.innerHTML = data.map(item => `
+                    <div class="activiteit-card">
+                        <div class="activiteit-content">
+                            <h3>${item.titel}</h3>
+                            <p>${item.content.substring(0, 150)}...</p>
+                            <p style="color: #666; font-size: 0.9em;">
+                                Door ${item.auteur || 'Anoniem'} op ${new Date(item.created_at).toLocaleDateString('nl-NL')}
+                            </p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading nieuws:', error);
+                document.getElementById('nieuws-container').innerHTML = 
+                    '<p>Kon nieuws niet laden. Probeer later opnieuw.</p>';
+            }
+        }
+        
+        // Load Bestuur
+        async function loadBestuur() {
+            try {
+                const response = await fetch(`${API_URL}/bestuur`);
+                const data = await response.json();
+                const container = document.getElementById('bestuur-container');
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<p>Geen bestuursleden gevonden.</p>';
+                    return;
+                }
+                
+                container.innerHTML = data.map(item => `
+                    <div class="bestuurslid-card">
+                        <div class="avatar">👤</div>
+                        <h3>${item.naam}</h3>
+                        <p style="color: #d4af37; font-weight: 600;">${item.functie}</p>
+                        <p>${item.email || ''}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading bestuur:', error);
+                document.getElementById('bestuur-container').innerHTML = 
+                    '<p>Kon bestuur niet laden. Probeer later opnieuw.</p>';
+            }
+        }
+        
+        // Load all data when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadActiviteiten();
+            loadNieuws();
+            loadBestuur();
         });
     </script>
 </body>
