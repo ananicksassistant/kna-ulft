@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fanfare KNA Ulft — Kunst Na Arbeid sinds 1919</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Fanfare Kunst Na Arbeid Ulft - Al meer dan 100 jaar muziek in de Achterhoek. Concerten, straatoptredens, muziekonderwijs.">
+    <title>Fanfare KNA Ulft | Kunst Na Arbeid sinds 1919</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --ink: #1a1209;
-            --cream: #f9f3e8;
-            --gold: #c9a84c;
-            --gold-light: #e8d5a3;
-            --gold-dark: #8b6914;
-            --warm-white: #fdf9f3;
-            --muted: #6b5b4f;
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --gold: #d4af37;
+            --gold-light: #f4e4c1;
+            --gold-dark: #b8941f;
+            --cream: #faf8f3;
+            --white: #ffffff;
+            --text: #2d2d2d;
+            --text-light: #666666;
+            --accent: #c9a227;
         }
 
         * {
@@ -26,471 +33,604 @@
             scroll-behavior: smooth;
         }
 
-        /* Scroll reveal animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Premium shimmer effect */
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(201, 168, 76, 0.1) 50%, transparent 100%);
-            background-size: 200% 100%;
-            animation: shimmer 3s infinite;
-        }
-
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--cream);
-            color: var(--ink);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Grain texture overlay */
-        body::before {
-            content: '';
+        /* Premium Grain Overlay */
+        .grain-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
             pointer-events: none;
             z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* Navigation */
-        nav {
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1.2rem 4rem;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(249, 243, 232, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            transition: all 0.4s ease;
+            background: transparent;
         }
 
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
+        .navbar.scrolled {
+            background: rgba(250, 248, 243, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+            padding: 1rem 5%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--ink);
+            color: var(--primary);
         }
 
-        .nav-logo span {
+        .logo-text span {
             color: var(--gold);
         }
 
         .nav-links {
             display: flex;
+            gap: 3rem;
             list-style: none;
-            gap: 2.5rem;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--ink);
+            color: var(--text);
             font-weight: 500;
             font-size: 0.9rem;
-            transition: color 0.2s;
+            letter-spacing: 0.5px;
             position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--gold);
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         .nav-cta {
             background: var(--gold);
-            color: var(--ink);
-            padding: 0.7rem 1.5rem;
-            border-radius: 6px;
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .nav-cta:hover {
             background: var(--gold-dark);
-            color: var(--cream);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.1) 35px, rgba(212, 175, 55, 0.1) 70px);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: var(--cream);
-            padding-top: 80px;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero-left {
-            padding: 6rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .hero-text {
+            color: white;
         }
 
-        .hero-eyebrow {
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold);
             color: var(--gold);
-            margin-bottom: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            font-weight: 900;
-            line-height: 1.1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1;
             margin-bottom: 1.5rem;
-            color: var(--ink);
         }
 
         .hero-title em {
             color: var(--gold);
-            font-style: normal;
+            font-style: italic;
         }
 
-        .hero-sub {
-            font-size: 1.1rem;
-            color: var(--muted);
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
             max-width: 500px;
             margin-bottom: 2.5rem;
             line-height: 1.8;
         }
 
-        .hero-actions {
+        .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        .btn-primary {
+        .btn-gold {
             background: var(--gold);
-            color: var(--ink);
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
         }
 
-        .btn-primary:hover {
-            background: var(--gold-dark);
-            color: var(--cream);
-            transform: translateY(-2px);
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.5);
         }
 
         .btn-outline {
             background: transparent;
-            color: var(--ink);
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            border: 2px solid var(--ink);
+            border: 2px solid rgba(255,255,255,0.3);
             transition: all 0.3s;
         }
 
         .btn-outline:hover {
-            background: var(--ink);
-            color: var(--cream);
+            border-color: white;
+            background: rgba(255,255,255,0.1);
         }
 
-        .hero-right {
-            background: var(--ink);
+        .hero-visual {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
-        .hero-visual {
-            text-align: center;
-            color: var(--gold);
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Musical staff decoration */
-        .staff-deco {
-            position: absolute;
-            width: 140%;
-            left: -20%;
+        .hero-circle {
+            width: 450px;
+            height: 450px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            opacity: 0.1;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: rotate 60s linear infinite;
         }
 
-        .staff-line {
-            height: 1px;
-            background: var(--gold-light);
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+        }
+
+        .hero-circle::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
         }
 
         .hero-note {
-            font-size: 22rem;
-            opacity: 0.08;
-            animation: pulse 5s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
+            font-size: 12rem;
+            color: var(--gold);
+            opacity: 0.3;
+            animation: pulse 4s ease-in-out infinite;
         }
 
-        .hero-year-badge {
+        .hero-year {
             position: absolute;
-            bottom: 3rem;
-            right: 3rem;
+            bottom: 0;
+            right: 0;
             background: var(--gold);
-            color: var(--ink);
-            padding: 1.5rem 2rem;
+            color: var(--primary);
+            padding: 2rem;
+            border-radius: 20px;
             text-align: center;
-            border-radius: 8px;
         }
 
-        .hero-year-badge .year {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
+        .hero-year .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
             display: block;
+            line-height: 1;
         }
 
-        .hero-year-badge .since {
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
+        .hero-year .label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            opacity: 0.8;
         }
 
-        /* Ticker */
-        .ticker {
-            background: var(--gold);
-            color: var(--ink);
-            padding: 1rem 0;
-            overflow: hidden;
-            white-space: nowrap;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .ticker-track {
-            display: inline-block;
-            animation: ticker 30s linear infinite;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.4; }
         }
 
-        .ticker-track span {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 0 3rem;
-        }
-
-        /* Stats */
-        .stats {
-            background: var(--ink);
-            padding: 4rem;
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--primary);
+            padding: 4rem 5%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .stat {
+            gap: 3rem;
             text-align: center;
-            padding: 1.5rem;
-            border-right: 1px solid rgba(201, 168, 76, 0.2);
         }
 
-        .stat:last-child {
-            border-right: none;
+        .stat-item {
+            color: white;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.3);
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 900;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 700;
             color: var(--gold);
-            display: block;
+            line-height: 1;
         }
 
         .stat-label {
-            font-size: 0.8rem;
-            color: rgba(249, 243, 232, 0.6);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            opacity: 0.7;
             margin-top: 0.5rem;
-            display: block;
-        }
-
-        /* Sections */
-        section {
-            padding: 6rem 4rem;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 3vw, 2.8rem);
-            font-weight: 900;
-            color: var(--ink);
-            margin-bottom: 1.5rem;
-        }
-
-        /* About */
-        .about {
-            background: var(--cream);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .about-text p {
-            color: var(--muted);
-            margin-bottom: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .about-quote {
-            background: var(--ink);
-            color: var(--cream);
-            padding: 3rem;
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .about-quote::before {
-            content: '"';
-            font-family: 'Playfair Display', serif;
-            font-size: 6rem;
-            color: var(--gold);
-            opacity: 0.3;
-            position: absolute;
-            top: -0.5rem;
-            left: 1.5rem;
-        }
-
-        .about-quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-style: italic;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-quote-author {
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--gold);
-            letter-spacing: 0.1em;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        /* Activities */
-        .activities {
-            background: var(--warm-white);
+        /* Section Styles */
+        .section {
+            padding: 8rem 5%;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            max-width: 700px;
+            margin: 0 auto 5rem;
         }
 
-        .activity-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .activity-card {
-            background: var(--cream);
-            padding: 2.5rem;
-            border-radius: 12px;
-            border-top: 4px solid var(--gold);
-            transition: all 0.3s;
-        }
-
-        .activity-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .activity-icon {
-            font-size: 2.5rem;
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin-bottom: 1rem;
         }
 
-        .activity-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+        .section-tag::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-text {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .about-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h2 span {
+            color: var(--gold);
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+
+        .about-features {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        /* Activities Section */
+        .activities {
+            background: var(--cream);
+        }
+
+        .activities-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .activity-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .activity-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+
+        .activity-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        .activity-icon {
+            font-size: 4rem;
+            z-index: 1;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+        }
+
+        .activity-content {
+            padding: 2rem;
+        }
+
+        .activity-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
             margin-bottom: 0.8rem;
         }
 
-        .activity-text {
-            color: var(--muted);
-            font-size: 0.95rem;
+        .activity-content p {
+            color: var(--text-light);
             line-height: 1.7;
         }
 
-        /* Agenda */
+        /* Agenda Section */
         .agenda {
-            background: var(--ink);
-            color: var(--cream);
+            background: var(--primary);
+            color: white;
         }
 
         .agenda .section-title {
-            color: var(--cream);
+            color: white;
         }
 
         .agenda-list {
+            max-width: 1000px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-top: 3rem;
+            gap: 1.5rem;
         }
 
         .agenda-item {
             display: grid;
-            grid-template-columns: 100px 1fr auto;
+            grid-template-columns: 120px 1fr auto;
             gap: 2rem;
             align-items: center;
-            padding: 1.5rem;
+            padding: 2rem;
             background: rgba(255,255,255,0.05);
-            border-radius: 8px;
+            border-radius: 16px;
             border-left: 4px solid var(--gold);
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
         .agenda-item:hover {
@@ -503,179 +643,191 @@
         }
 
         .agenda-day {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 900;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
             color: var(--gold);
+            line-height: 1;
         }
 
         .agenda-month {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 2px;
             opacity: 0.6;
         }
 
-        .agenda-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+        .agenda-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
             font-weight: 700;
+            margin-bottom: 0.3rem;
         }
 
-        .agenda-location {
-            font-size: 0.9rem;
+        .agenda-info p {
             opacity: 0.6;
-            margin-top: 0.25rem;
+            font-size: 0.95rem;
         }
 
         .agenda-tag {
             background: var(--gold);
-            color: var(--ink);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            color: var(--primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 1px;
         }
 
-        /* Education */
+        /* Education Section */
         .education {
-            background: var(--cream);
+            background: var(--white);
+        }
+
+        .education-grid {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.5fr;
-            gap: 5rem;
+            gap: 6rem;
+            align-items: start;
         }
 
-        .edu-cards {
+        .education-content p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .program-cards {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .edu-card {
-            background: var(--warm-white);
-            padding: 2rem;
-            border-radius: 12px;
+        .program-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 20px;
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             align-items: flex-start;
             border-left: 4px solid transparent;
             transition: all 0.3s;
         }
 
-        .edu-card:hover {
+        .program-card:hover {
             border-left-color: var(--gold);
-            transform: translateX(5px);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        .edu-badge {
+        .program-icon {
+            width: 70px;
+            height: 70px;
             background: var(--gold);
-            color: var(--ink);
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             flex-shrink: 0;
         }
 
-        .edu-card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+        .program-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
             font-weight: 700;
+            color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
-        .edu-card-text {
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .program-info p {
+            color: var(--text-light);
+            line-height: 1.7;
         }
 
-        /* Signup */
-        .signup {
-            background: var(--gold);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            padding: 6rem 5%;
+            text-align: center;
         }
 
-        .signup-text {
-            color: var(--gold-dark);
-            margin-bottom: 2rem;
-            line-height: 1.8;
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .signup-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
         }
 
-        .form-row {
-            display: flex;
-            gap: 1rem;
+        .cta p {
+            color: rgba(26, 26, 46, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
         }
 
-        .form-input, .form-select {
-            flex: 1;
-            padding: 1rem;
-            border: 2px solid rgba(139, 105, 20, 0.3);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.8);
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--gold-dark);
-        }
-
-        .btn-dark {
-            background: var(--ink);
-            color: var(--cream);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
-            cursor: pointer;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
             transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .btn-dark:hover {
-            background: #2a1e0a;
-            transform: translateY(-2px);
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         /* Footer */
         footer {
-            background: #0d0a04;
-            color: rgba(249, 243, 232, 0.6);
-            padding: 4rem;
+            background: var(--primary);
+            color: white;
+            padding: 5rem 5% 2rem;
         }
 
         .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-brand p {
-            margin-top: 1rem;
-            line-height: 1.7;
+            opacity: 0.7;
+            line-height: 1.8;
             max-width: 300px;
         }
 
         .footer-col h4 {
             color: var(--gold);
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
         }
@@ -689,9 +841,9 @@
         }
 
         .footer-col a {
-            color: rgba(249, 243, 232, 0.5);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.3s;
         }
 
         .footer-col a:hover {
@@ -699,91 +851,81 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.15; }
-            50% { transform: scale(1.05); opacity: 0.2; }
-        }
-
-        @keyframes ticker {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .hero {
+            .hero-content,
+            .about-grid,
+            .education-grid {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
-            
-            .hero-right {
-                min-height: 300px;
-            }
-            
-            .about, .education, .signup {
-                grid-template-columns: 1fr;
-            }
-            
-            .activity-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
+
+            .activities-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .agenda-item {
-                grid-template-columns: 80px 1fr;
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
             }
-            
-            .agenda-tag {
+
+            .stat-item:not(:last-child)::after {
                 display: none;
             }
-            
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            nav {
-                padding: 1rem 2rem;
-            }
-            
             .nav-links {
                 display: none;
             }
-            
-            section {
-                padding: 4rem 2rem;
+
+            .hero-circle {
+                width: 300px;
+                height: 300px;
             }
-            
-            .hero-left {
-                padding: 2rem;
+
+            .hero-note {
+                font-size: 6rem;
             }
-            
-            .stats {
+
+            .activities-grid {
                 grid-template-columns: 1fr;
-                padding: 2rem;
             }
-            
-            .form-row {
-                flex-direction: column;
+
+            .agenda-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .agenda-tag {
+                justify-self: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <div class="grain-overlay"></div>
+
     <!-- Navigation -->
-    <nav>
-        <div class="nav-logo">KNA <span>Ulft</span></div>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon">KNA</div>
+            <div class="logo-text">Kunst Na <span>Arbeid</span></div>
+        </a>
         <ul class="nav-links">
             <li><a href="#over">Over ons</a></li>
             <li><a href="#activiteiten">Activiteiten</a></li>
@@ -791,336 +933,306 @@
             <li><a href="#onderwijs">Muziekonderwijs</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#aanmelden" class="nav-cta">Aanmelden</a>
+        <a href="#contact" class="nav-cta">Word lid</a>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-left">
-            <span class="hero-eyebrow">Fanfare Kunst Na Arbeid — Ulft</span>
-            <h1 class="hero-title">
-                Al meer dan<br/>
-                <em>100 jaar</em><br/>
-                muziek in de<br/>
-                Achterhoek
-            </h1>
-            <p class="hero-sub">
-                De gezelligste fanfare van de Achterhoek. Wij spelen voor iedereen — 
-                van jong tot oud, beginner tot gevorderd. Elke maandagavond samen 
-                muziek maken in Ulft.
-            </p>
-            <div class="hero-actions">
-                <a href="#aanmelden" class="btn-primary">Word lid</a>
-                <a href="#activiteiten" class="btn-outline">Ontdek KNA</a>
-            </div>
-        </div>
-        <div class="hero-right">
-            <div class="hero-visual">
-                <div class="staff-deco">
-                    <div class="staff-line"></div>
-                    <div class="staff-line"></div>
-                    <div class="staff-line"></div>
-                    <div class="staff-line"></div>
-                    <div class="staff-line"></div>
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fas fa-music"></i> Sinds 1919
                 </div>
-                <div class="hero-note">𝄞</div>
+                <h1 class="hero-title">
+                    Al meer dan<br>
+                    <em>100 jaar</em><br>
+                    muziek in de<br>
+                    Achterhoek
+                </h1>
+                <p class="hero-subtitle">
+                    De gezelligste fanfare van de Achterhoek. Wij spelen voor iedereen — 
+                    van jong tot oud, beginner tot gevorderd.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-gold">
+                        <i class="fas fa-user-plus"></i> Word lid
+                    </a>
+                    <a href="#activiteiten" class="btn-outline">
+                        Ontdek KNA <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="hero-year-badge">
-                <span class="since">Opgericht</span>
-                <span class="year">1919</span>
+            <div class="hero-visual">
+                <div class="hero-circle">
+                    <div class="hero-note">𝄞</div>
+                </div>
+                <div class="hero-year">
+                    <span class="number">106</span>
+                    <span class="label">Jaar traditie</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Ticker -->
-    <div class="ticker">
-        <div class="ticker-track">
-            <span>Repetitie elke maandagavond 19:30 – 21:30</span>
-            <span>Clubgebouw De Key · Frank Daamenstraat 39a, Ulft</span>
-            <span>Carnaval · Koningsdag · Avondvierdaagse · Kermis</span>
-            <span>Muzipluz! voor beginners</span>
-            <span>Muzikidz! voor de jeugd</span>
-            <span>Repetitie elke maandagavond 19:30 – 21:30</span>
-            <span>Clubgebouw De Key · Frank Daamenstraat 39a, Ulft</span>
-            <span>Carnaval · Koningsdag · Avondvierdaagse · Kermis</span>
-            <span>Muzipluz! voor beginners</span>
-            <span>Muzikidz! voor de jeugd</span>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">106</div>
+            <div class="stat-label">Jaar traditie</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">~35</div>
+            <div class="stat-label">Actieve leden</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">4+</div>
+            <div class="stat-label">Optredens / jaar</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Gezelligheid</div>
         </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat">
-            <span class="stat-number">106</span>
-            <span class="stat-label">Jaar traditie</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">~35</span>
-            <span class="stat-label">Actieve leden</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">4+</span>
-            <span class="stat-label">Optredens per jaar</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">∞</span>
-            <span class="stat-label">Gezelligheid</span>
-        </div>
-    </div>
-
-    <!-- About -->
-    <section class="about" id="over">
-        <div class="about-text">
-            <span class="section-label">Over ons</span>
-            <h2 class="section-title">Muziek voor<br/>iedereen in Ulft</h2>
-            <p>
-                Fanfare KNA — Kunst Na Arbeid — is al meer dan honderd jaar de muzikale 
-                trots van Ulft. Opgericht op 15 augustus 1919 door pastoor Jan Wijtze 
-                de Vries en 12 parochianen, met als doel: muziek voor arbeiders uit de 
-                omgeving — vandaar "Kunst na Arbeid".
-            </p>
-            <p>
-                We zijn een vereniging voor en door leden, waar iedereen op zijn eigen 
-                manier muziek kan maken. Onder leiding van dirigente <strong>Henrite Jansma-Rusch</strong> 
-                genieten we sinds 2016 van nieuw elan en stijgend niveau.
-            </p>
-            <p>
-                <strong>We repeteren elke maandagavond van 19:30 tot 21:30</strong> in clubgebouw 
-                <em>'de Key'</em> aan de Frank Daamenstraat 39a in Ulft.
-            </p>
-            <a href="#aanmelden" class="btn-primary" style="margin-top: 1rem;">Kom een keer meeluisteren</a>
-        </div>
-        <div>
-            <div class="about-quote">
-                <p class="about-quote-text">
-                    "Iedereen vindt een fijne plek binnen onze fanfare. Muziek maken 
-                    is het mooist als je het samen doet."
+    <!-- About Section -->
+    <section class="section about" id="over">
+        <div class="about-grid">
+            <div class="about-image">
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); height: 500px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 5rem;">
+                    🎺
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-tag">Over ons</span>
+                <h2>Muziek voor<br><span>iedereen</span> in Ulft</h2>
+                <p>
+                    Fanfare KNA — Kunst Na Arbeid — is al meer dan honderd jaar de muzikale 
+                    trots van Ulft. Opgericht op <strong>15 augustus 1919</strong> door pastoor 
+                    Jan Wijtze de Vries en 12 parochianen.
                 </p>
-                <p class="about-quote-author">— Fanfare KNA Ulft</p>
+                <p>
+                    Onder leiding van dirigente <strong>Henrite Jansma-Rusch</strong> genieten 
+                    we sinds 2016 van nieuw elan en stijgend niveau. We repeteren elke 
+                    <strong>maandagavond van 19:30 tot 21:30</strong> in clubgebouw 'de Key'.
+                </p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <span>Voor alle leeftijden</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-award"></i></div>
+                        <span>Koninklijke Erepenning 2019</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-heart"></i></div>
+                        <span>Gezelligheid staat voorop</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Activities -->
-    <section class="activities" id="activiteiten">
+    <!-- Activities Section -->
+    <section class="section activities" id="activiteiten">
         <div class="section-header">
-            <span class="section-label">Activiteiten</span>
-            <h2 class="section-title">Wat we doen</h2>
+            <span class="section-tag">Wat we doen</span>
+            <h2 class="section-title">Onze Activiteiten</h2>
+            <p class="section-text">Van traditionele concerten tot sfeervolle straatoptredens</p>
         </div>
-        <div class="activity-grid">
+        <div class="activities-grid">
             <div class="activity-card">
-                <div class="activity-icon">🎺</div>
-                <h3 class="activity-title">Concerten</h3>
-                <p class="activity-text">
-                    Meerdere keren per jaar verzorgen we concerten waarbij we ons beste 
-                    werk laten horen. Onder andere het Nieuwjaarsconcert in het CIVON 
-                    Innovatiecentrum.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🎺</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Concerten</h3>
+                    <p>Meerdere keren per jaar verzorgen we concerten, waaronder het Nieuwjaarsconcert in het CIVON Innovatiecentrum.</p>
+                </div>
             </div>
             <div class="activity-card">
-                <div class="activity-icon">🥁</div>
-                <h3 class="activity-title">Straatoptredens</h3>
-                <p class="activity-text">
-                    Vier keer per jaar trekken we de straat op met marsmuziek: Carnaval, 
-                    Koningsdag, Ulftse Avondvierdaagse en de Oerse Kermis.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🥁</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Straatoptredens</h3>
+                    <p>Carnaval, Koningsdag, Avondvierdaagse en Oerse Kermis — vier keer per jaar trekken we de straat op.</p>
+                </div>
             </div>
             <div class="activity-card">
-                <div class="activity-icon">🎶</div>
-                <h3 class="activity-title">Weeklijkse repetitie</h3>
-                <p class="activity-text">
-                    Elke maandagavond van 19:30 tot 21:30 uur in clubgebouw 'de Key'. 
-                    De nadruk ligt op muziek voor onze concerten.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🎶</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Repetities</h3>
+                    <p>Elke maandagavond van 19:30 tot 21:30 uur in clubgebouw 'de Key' aan de Frank Daamenstraat 39a.</p>
+                </div>
             </div>
             <div class="activity-card">
-                <div class="activity-icon">🎓</div>
-                <h3 class="activity-title">Muzipluz!</h3>
-                <p class="activity-text">
-                    Voor beginners van alle leeftijden: samen leren muziek maken. 
-                    Jong en oud door elkaar in een warm en inclusief klimaat.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🎓</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Muzipluz!</h3>
+                    <p>Beginnersopleiding voor jong en oud. Samen muziek maken in een warm en inclusief klimaat.</p>
+                </div>
             </div>
             <div class="activity-card">
-                <div class="activity-icon">🌟</div>
-                <h3 class="activity-title">Muzikidz!</h3>
-                <p class="activity-text">
-                    Speciaal voor jongere muzikanten: Muzikidz! is dé plek om op een 
-                    leuke manier de fanfarewereld te ontdekken.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🌟</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Muzikidz!</h3>
+                    <p>Speciaal jeugdprogramma opgezet door onze dirigente. Spelenderwijs een instrument leren.</p>
+                </div>
             </div>
             <div class="activity-card">
-                <div class="activity-icon">🍺</div>
-                <h3 class="activity-title">Gezelligheid</h3>
-                <p class="activity-text">
-                    KNA is meer dan muziek — het is een hechte gemeenschap. Samen borrelen 
-                    na de repetitie of een gezellig uitje.
-                </p>
+                <div class="activity-header">
+                    <div class="activity-icon">🍺</div>
+                </div>
+                <div class="activity-content">
+                    <h3>Gezelligheid</h3>
+                    <p>KNA is meer dan muziek — het is een hechte gemeenschap. Borrels, uitjes en samenzijn.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Agenda -->
-    <section class="agenda" id="agenda">
+    <!-- Agenda Section -->
+    <section class="section agenda" id="agenda">
         <div class="section-header">
-            <span class="section-label">Agenda 2025</span>
-            <h2 class="section-title">Komende evenementen</h2>
+            <span class="section-tag">Agenda 2025</span>
+            <h2 class="section-title">Komende Evenementen</h2>
         </div>
         <div class="agenda-list">
             <div class="agenda-item">
                 <div class="agenda-date">
-                    <span class="agenda-day">2</span>
-                    <span class="agenda-month">MRT</span>
+                    <div class="agenda-day">2</div>
+                    <div class="agenda-month">MRT</div>
                 </div>
-                <div>
-                    <div class="agenda-name">Carnavalsoptocht Ulft</div>
-                    <div class="agenda-location">📍 Ulft centrum</div>
+                <div class="agenda-info">
+                    <h3>Carnavalsoptocht Ulft</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Ulft centrum</p>
                 </div>
                 <span class="agenda-tag">Straatoptreden</span>
             </div>
             <div class="agenda-item">
                 <div class="agenda-date">
-                    <span class="agenda-day">5</span>
-                    <span class="agenda-month">MEI</span>
+                    <div class="agenda-day">5</div>
+                    <div class="agenda-month">MEI</div>
                 </div>
-                <div>
-                    <div class="agenda-name">Bevrijdingsconcert</div>
-                    <div class="agenda-location">📍 Kerk Varsselder-Veldhunten (met Fanfare Gregorius)</div>
+                <div class="agenda-info">
+                    <h3>Bevrijdingsconcert</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Kerk Varsselder-Veldhunten</p>
                 </div>
                 <span class="agenda-tag">Concert</span>
             </div>
             <div class="agenda-item">
                 <div class="agenda-date">
-                    <span class="agenda-day">7</span>
-                    <span class="agenda-month">JUN</span>
+                    <div class="agenda-day">18</div>
+                    <div class="agenda-month">MEI</div>
                 </div>
-                <div>
-                    <div class="agenda-name">Ulftse Avondvierdaagse</div>
-                    <div class="agenda-location">📍 Zwarte Plein, Ulft</div>
-                </div>
-                <span class="agenda-tag">Mars</span>
-            </div>
-            <div class="agenda-item">
-                <div class="agenda-date">
-                    <span class="agenda-day">18</span>
-                    <span class="agenda-month">MEI</span>
-                </div>
-                <div>
-                    <div class="agenda-name">Schuttersconcours</div>
-                    <div class="agenda-location">📍 VV Ulftse Boys</div>
+                <div class="agenda-info">
+                    <h3>Schuttersconcours</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> VV Ulftse Boys</p>
                 </div>
                 <span class="agenda-tag">Optreden</span>
             </div>
             <div class="agenda-item">
                 <div class="agenda-date">
-                    <span class="agenda-day">30</span>
-                    <span class="agenda-month">NOV</span>
+                    <div class="agenda-day">7</div>
+                    <div class="agenda-month">JUN</div>
                 </div>
-                <div>
-                    <div class="agenda-name">Najaarsconcert</div>
-                    <div class="agenda-location">📍 CIVON Innovatiecentrum, Ulft • 14:00 uur</div>
+                <div class="agenda-info">
+                    <h3>Ulftse Avondvierdaagse</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Zwarte Plein, Ulft</p>
+                </div>
+                <span class="agenda-tag">Mars</span>
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-date">
+                    <div class="agenda-day">30</div>
+                    <div class="agenda-month">NOV</div>
+                </div>
+                <div class="agenda-info">
+                    <h3>Najaarsconcert</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> CIVON Innovatiecentrum • 14:00</p>
                 </div>
                 <span class="agenda-tag">Concert</span>
             </div>
         </div>
-        <p style="margin-top: 2rem; text-align: center; opacity: 0.5; font-size: 0.9rem;">
-            ✦ Volg ons op <a href="https://www.facebook.com/FanfareKnaUlft" style="color: var(--gold);">Facebook</a> voor het laatste nieuws
-        </p>
     </section>
 
-    <!-- Education -->
-    <section class="education" id="onderwijs">
-        <div>
-            <span class="section-label">Muziekonderwijs</span>
-            <h2 class="section-title">Leer muziek<br/>maken bij KNA</h2>
-            <p style="color: var(--muted); line-height: 1.8; margin-bottom: 2rem;">
-                Muziek leren is het leukst als je het samen doet. Bij KNA hoef je niet 
-                in je eentje te oefenen — je groeit samen met andere muzikanten van alle 
-                leeftijden. Na behalen van je A-diploma stroom je door naar het A-orkest.
-            </p>
-            <a href="#aanmelden" class="btn-primary">Informatie aanvragen</a>
-        </div>
-        <div class="edu-cards">
-            <div class="edu-card">
-                <div class="edu-badge">🎵</div>
-                <div>
-                    <h3 class="edu-card-title">Muzipluz! — Beginnerslessen</h3>
-                    <p class="edu-card-text">
-                        Jong en oud leren samen muziek maken in een ontspannen setting. 
-                        Geen ervaring nodig — alleen enthousiasme!
-                    </p>
-                </div>
+    <!-- Education Section -->
+    <section class="section education" id="onderwijs">
+        <div class="education-grid">
+            <div class="education-content">
+                <span class="section-tag">Muziekonderwijs</span>
+                <h2 class="section-title">Leer muziek<br>maken bij KNA</h2>
+                <p>
+                    Muziek leren is het leukst als je het samen doet. Bij KNA hoef je niet 
+                    in je eentje te oefenen — je groeit samen met andere muzikanten van alle 
+                    leeftijden.
+                </p>
+                <p>
+                    Na behalen van je <strong>A-diploma</strong> stroom je door naar het A-orkest. 
+                    Iedereen vindt een plek binnen onze fanfare!
+                </p>
+                <a href="#contact" class="btn-gold" style="margin-top: 1rem;">
+                    <i class="fas fa-info-circle"></i> Meer informatie
+                </a>
             </div>
-            <div class="edu-card">
-                <div class="edu-badge">🌟</div>
-                <div>
-                    <h3 class="edu-card-title">Muzikidz! — Jeugdmuziek</h3>
-                    <p class="edu-card-text">
-                        Speciaal voor kinderen: een eigen plek binnen KNA om spelenderwijs 
-                        een instrument te leren.
-                    </p>
+            <div class="program-cards">
+                <div class="program-card">
+                    <div class="program-icon">🎵</div>
+                    <div class="program-info">
+                        <h3>Muzipluz! — Beginnerslessen</h3>
+                        <p>Jong en oud leren samen muziek maken. Geen ervaring nodig — alleen enthousiasme!</p>
+                    </div>
                 </div>
-            </div>
-            <div class="edu-card">
-                <div class="edu-badge">🎺</div>
-                <div>
-                    <h3 class="edu-card-title">Opleidingsorkest (B-orkest)</h3>
-                    <p class="edu-card-text">
-                        Alle leerlingen spelen samen in het B-orkest. Zo leer je niet 
-                        alleen van je lessen, maar ook van en met elkaar.
-                    </p>
+                <div class="program-card">
+                    <div class="program-icon">🌟</div>
+                    <div class="program-info">
+                        <h3>Muzikidz! — Jeugdmuziek</h3>
+                        <p>Speciaal voor kinderen: een eigen plek binnen KNA om spelenderwijs een instrument te leren.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="edu-card">
-                <div class="edu-badge">♿</div>
-                <div>
-                    <h3 class="edu-card-title">Maatwerk voor iedereen</h3>
-                    <p class="edu-card-text">
-                        Lukt het lopen op straat minder goed? We zoeken samen naar een 
-                        oplossing die bij jou past. Inclusiviteit staat centraal.
-                    </p>
+                <div class="program-card">
+                    <div class="program-icon">🎺</div>
+                    <div class="program-info">
+                        <h3>Opleidingsorkest (B-orkest)</h3>
+                        <p>Alle leerlingen spelen samen. Zo leer je van en met elkaar.</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">♿</div>
+                    <div class="program-info">
+                        <h3>Maatwerk voor iedereen</h3>
+                        <p>We zoeken altijd een oplossing die bij jou past. Inclusiviteit staat centraal.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Signup -->
-    <section class="signup" id="aanmelden">
-        <div>
-            <span class="section-label">Aanmelden</span>
-            <h2 class="section-title">Word lid van<br/>KNA Ulft</h2>
-            <p class="signup-text">
-                Wil je een keer komen kijken? Een instrument leren? Of direct lid worden? 
-                Laat hier je gegevens achter en we nemen contact met je op.
-            </p>
-        </div>
-        <div>
-            <form class="signup-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <div class="form-row">
-                    <input type="text" name="voornaam" class="form-input" placeholder="Voornaam" required>
-                    <input type="text" name="achternaam" class="form-input" placeholder="Achternaam" required>
-                </div>
-                <input type="email" name="email" class="form-input" placeholder="E-mailadres" required>
-                <input type="tel" name="telefoon" class="form-input" placeholder="Telefoonnummer">
-                <select name="interesse" class="form-select" required>
-                    <option value="" disabled selected>Ik ben geïnteresseerd in...</option>
-                    <option value="lid">Lid worden — volwassenen</option>
-                    <option value="muzikidz">Muzikidz! (jeugd)</option>
-                    <option value="muzipluz">Muzipluz! (beginners)</option>
-                    <option value="kijken">Gewoon eens komen kijken</option>
-                    <option value="anders">Anders</option>
-                </select>
-                <button type="submit" class="btn-dark">Stuur aanvraag →</button>
-            </form>
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-content">
+            <h2>Word lid van KNA Ulft</h2>
+            <p>Wil je een keer komen kijken? Een instrument leren? Of direct lid worden? We nemen graag contact met je op.</p>
+            <a href="mailto:info@kna-ulft.nl" class="btn-white">
+                <i class="fas fa-envelope"></i> Stuur een bericht
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <div class="nav-logo">KNA <span>Ulft</span></div>
-                <p>Fanfare Kunst Na Arbeid — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek. Welkom in Ulft.</p>
+                <div class="logo-text">KNA <span>Ulft</span></div>
+                <p>Fanfare Kunst Na Arbeid — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek.</p>
             </div>
             <div class="footer-col">
                 <h4>Navigatie</h4>
@@ -1136,8 +1248,8 @@
                 <ul>
                     <li><a href="mailto:info@kna-ulft.nl">info@kna-ulft.nl</a></li>
                     <li><a href="https://www.kna-ulft.nl">www.kna-ulft.nl</a></li>
-                    <li><a href="https://www.facebook.com/FanfareKnaUlft">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/fanfare_kna_ulft/">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/FanfareKnaUlft"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="https://www.instagram.com/fanfare_kna_ulft/"><i class="fab fa-instagram"></i> Instagram</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -1146,24 +1258,33 @@
                     <li>Clubgebouw 'de Key'</li>
                     <li>Frank Daamenstraat 39a</li>
                     <li>7071 AV Ulft</li>
-                    <li>Maandag 19:30–21:30</li>
+                    <li><i class="fas fa-clock"></i> Ma 19:30–21:30</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2025 Fanfare KNA Ulft · Kunst Na Arbeid</span>
-            <span>KvK: 40121537 · SBBI-status</span>
+            <p>&copy; 2025 Fanfare KNA Ulft · Kunst Na Arbeid · KvK: 40121537 · SBBI-status</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll for navigation
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
