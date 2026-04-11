@@ -19,14 +19,28 @@
         
         /* Navigation */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .logo img { height: 50px; width: auto; }
         .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--primary); font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--gold); }
         
         /* Hero */
-        .hero { min-height: 100vh; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 2rem; }
+        .hero { 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1511192330375-d5a85b07b9e0?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            padding: 2rem; 
+            position: relative;
+        }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 1rem; }
         .hero h1 em { color: var(--gold); font-style: normal; }
         .btn-primary { background: var(--gold); color: var(--primary); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 1rem; }
@@ -48,9 +62,24 @@
         .card-content { padding: 1.5rem; }
         .date { font-size: 2.5rem; font-weight: 700; color: var(--gold); }
         
+        /* Image Cards */
+        .image-card { position: relative; overflow: hidden; }
+        .image-card img { width: 100%; height: 250px; object-fit: cover; }
+        .image-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 2rem 1.5rem; color: white; }
+        
+        /* Opleidingen */
+        .opleiding-card { text-align: center; padding: 2rem; }
+        .opleiding-icon { font-size: 4rem; margin-bottom: 1rem; }
+        
         /* Bestuur */
         .bestuur-card { text-align: center; padding: 2rem; }
         .avatar { width: 100px; height: 100px; background: var(--gold); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .bestuur-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; }
+        
+        /* Gallery */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; transition: transform 0.3s; }
+        .gallery img:hover { transform: scale(1.05); }
         
         /* Footer */
         footer { background: var(--primary); color: white; padding: 3rem 5%; text-align: center; }
@@ -63,11 +92,14 @@
 </head>
 <body>
     <nav>
-        <div class="logo">KNA <span>Ulft</span></div>
+        <div class="logo">
+            🎺 KNA <span>Ulft</span>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#activiteiten">Agenda</a></li>
             <li><a href="#nieuws">Nieuws</a></li>
+            <li><a href="#opleidingen">Opleidingen</a></li>
             <li><a href="#bestuur">Bestuur</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -147,11 +179,11 @@
             <p>Wat is er nieuw bij KNA</p>
         </div>
         <div class="grid">
-            <div class="card">
-                <div class="card-content">
+            <div class="card image-card">
+                <img src="https://images.unsplash.com/photo-1511192330375-d5a85b07b9e0?w=800&q=80" alt="KNA Concert">
+                <div class="overlay">
                     <h3>KNA Viert 106-jarig Bestaan!</h3>
-                    <p>Fanfare Kunst Na Arbeid bestaat dit jaar 106 jaar. Opgericht in 1919 en nog steeds de gezelligste fanfare van de Achterhoek!</p>
-                    <p style="color: #666; font-size: 0.9em; margin-top: 1rem;">Door Ana - 11 april 2026</p>
+                    <p>Fanfare Kunst Na Arbeid bestaat dit jaar 106 jaar. Opgericht in 1919!</p>
                 </div>
             </div>
             <div class="card">
@@ -161,6 +193,67 @@
                     <p style="color: #666; font-size: 0.9em; margin-top: 1rem;">Door Henrite Jansma-Rusch - 11 april 2026</p>
                 </div>
             </div>
+        </div>
+    </section>
+    
+    <!-- NIEUW: Opleidingen Sectie -->
+    <section id="opleidingen" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;">
+        <div class="section-header">
+            <h2 style="color: white;">🎓 Muziekopleidingen</h2>
+            <p style="color: var(--gold-light);">Leer muziek maken bij KNA - voor alle leeftijden!</p>
+        </div>
+        <div class="grid">
+            <div class="card opleiding-card" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid var(--gold);">
+                <div class="opleiding-icon">🎵</div>
+                <h3>Muzipluz!</h3>
+                <p style="color: var(--gold-light);"><strong>Voor beginners van alle leeftijden</strong></p>
+                <p>Jong en oud leren samen muziek maken in een ontspannen setting. Geen ervaring nodig - alleen enthousiasme!</p>
+                <ul style="text-align: left; margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Maandelijkse bijeenkomsten</li>
+                    <li>Samen spelen in B-orkest</li>
+                    <li>Na A-diploma door naar A-orkest</li>
+                </ul>
+            </div>
+            <div class="card opleiding-card" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid var(--gold);">
+                <div class="opleiding-icon">🌟</div>
+                <h3>Muzikidz!</h3>
+                <p style="color: var(--gold-light);"><strong>Speciaal voor kinderen</strong></p>
+                <p>Een eigen plek binnen KNA om spelenderwijs een instrument te leren. Een geweldige manier om vrienden te maken via muziek!</p>
+                <ul style="text-align: left; margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Kindvriendelijke aanpak</li>
+                    <li>Leer spelen via spelletjes</li>
+                    <li>Onder leiding van professionele muzikanten</li>
+                </ul>
+            </div>
+            <div class="card opleiding-card" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid var(--gold);">
+                <div class="opleiding-icon">🎺</div>
+                <h3>Opleidingsorkest (B-orkest)</h3>
+                <p style="color: var(--gold-light);"><strong>Samen leren door samen te spelen</strong></p>
+                <p>Alle leerlingen, jong en oud door elkaar, spelen samen in het B-orkest. Zo leer je niet alleen van je lessen, maar ook van en met elkaar.</p>
+                <ul style="text-align: left; margin-top: 1rem; padding-left: 1.5rem;">
+                    <li>Wekelijkse repetities</li>
+                    <li>Maandag 18:30-19:15</li>
+                    <li>Voorbereiding op A-orkest</li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;"><strong>Repetitie:</strong> Elke maandag 19:30-21:30</p>
+            <p style="color: var(--gold-light);"><i class="fas fa-map-marker-alt"></i> Clubgebouw 'de Key', Frank Daamenstraat 39a, Ulft</p>
+        </div>
+    </section>
+    
+    <!-- NIEUW: Fotogalerij -->
+    <section id="fotos" style="background: var(--cream);">
+        <div class="section-header">
+            <h2>📸 Impressies</h2>
+            <p>Een sfeerimpressie van onze activiteiten</p>
+        </div>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1511192330375-d5a85b07b9e0?w=600&q=80" alt="KNA Fanfare">
+            <img src="https://images.unsplash.com/photo-1465847899078-b413929f7120?w=600&q=80" alt="Muzikanten">
+            <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?w=600&q=80" alt="Optreden">
+            <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80" alt="Concert">
         </div>
     </section>
     
@@ -200,8 +293,9 @@
     <footer id="contact">
         <h2>Contact</h2>
         <p>Fanfare Kunst Na Arbeid Ulft</p>
-        <p>Clubgebouw 'de Key' - Frank Daamenstraat 39a, 7071 AV Ulft</p>
-        <p>Email: info@kna-ulft.nl | Tel: 06-49636660</p>
+        <p><i class="fas fa-map-marker-alt"></i> Clubgebouw 'de Key' - Frank Daamenstraat 39a, 7071 AV Ulft</p>
+        <p><i class="fas fa-envelope"></i> info@kna-ulft.nl | <i class="fas fa-phone"></i> 06-49636660</p>
+        <p style="margin-top: 1rem;"><i class="fas fa-clock"></i> Repetitie: Maandag 19:30-21:30</p>
         <p style="margin-top: 2rem; opacity: 0.6;">&copy; 2025 KNA Ulft | Gebouwd met ❤️ door Ana | FULL-STACK v4.0</p>
     </footer>
 </body>
