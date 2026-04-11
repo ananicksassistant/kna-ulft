@@ -2,7 +2,7 @@ import sqlite3
 import os
 from contextlib import contextmanager
 
-DATABASE_URL = os.getenv('DATABASE_URL', '/app/data/kna.db')
+DATABASE_URL = os.getenv('DATABASE_URL', './data/kna.db')
 
 @contextmanager
 def get_db_connection():
