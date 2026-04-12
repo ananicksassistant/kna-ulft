@@ -1,466 +1,573 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fanfare KNA Ulft - FULL-STACK v5.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --gold: #d4af37;
-            --gold-light: #f4e4c1;
-            --cream: #faf8f3;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--primary); line-height: 1.6; }
-        
-        /* Navigation */
-        nav { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 0.5rem; }
-        .logo span { color: var(--gold); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; color: rgba(255,255,255,0.9); font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        
-        /* Hero */
-        .hero { min-height: 100vh; background: linear-gradient(135deg, rgba(26,26,46,0.85) 0%, rgba(22,33,62,0.9) 100%), url('images/kna-hero.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 2rem; }
-        .hero-content { max-width: 900px; }
-        .hero-badge { display: inline-block; background: var(--gold); color: var(--primary); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2rem; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); margin-bottom: 1.5rem; }
-        .hero h1 em { color: var(--gold); font-style: normal; }
-        .hero-subtitle { font-size: 1.4rem; max-width: 700px; margin: 0 auto 2.5rem; opacity: 0.95; }
-        .btn-primary { background: var(--gold); color: var(--primary); padding: 1.2rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.1rem; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4); }
-        
-        /* Stats */
-        .stats { background: var(--primary); padding: 5rem 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; text-align: center; color: white; }
-        .stat h3 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); }
-        .stat-label { font-size: 1rem; opacity: 0.8; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* Sections */
-        section { padding: 6rem 5%; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin-bottom: 1rem; }
-        .section-header p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto; }
-        
-        /* Loading */
-        .loading { text-align: center; padding: 3rem; color: #666; }
-        .loading i { font-size: 2rem; color: var(--gold); animation: spin 1s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        /* Error */
-        .error { text-align: center; padding: 3rem; color: #dc3545; }
-        
-        /* Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); transition: transform 0.4s; }
-        .card:hover { transform: translateY(-12px); box-shadow: 0 25px 60px rgba(0,0,0,0.15); }
-        .card-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2.5rem 2rem; text-align: center; }
-        .card-content { padding: 2rem; }
-        .date { font-size: 3rem; font-weight: 800; color: var(--gold); font-family: 'Playfair Display', serif; }
-        .card-content h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; }
-        .meta { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
-        .meta-item { display: flex; align-items: center; gap: 0.8rem; color: #555; }
-        .meta-item i { color: var(--gold); width: 20px; }
-        
-        /* Opleidingen */
-        .opleidingen-section { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; }
-        .opleiding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
-        .opleiding-card { background: rgba(255,255,255,0.05); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 20px; padding: 3rem 2rem; text-align: center; }
-        .opleiding-card:hover { border-color: var(--gold); transform: translateY(-8px); }
-        .opleiding-icon { font-size: 4rem; margin-bottom: 1.5rem; }
-        .opleiding-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
-        .subtitle { color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
-        .opleiding-card ul { text-align: left; list-style: none; padding: 0; }
-        .opleiding-card li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: rgba(255,255,255,0.85); }
-        .opleiding-card li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: bold; }
-        
-        /* Bestuur */
-        .bestuurslid-card { text-align: center; padding: 2.5rem 2rem; }
-        .avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); }
-        .functie { color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* Footer */
-        footer { background: var(--primary); color: white; padding: 5rem 5%; text-align: center; }
-        footer h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 2rem; }
-        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin: 2rem 0; }
-        .social-links a { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; transition: all 0.3s; }
-        .social-links a:hover { background: var(--gold); color: var(--primary); transform: translateY(-5px); }
-        
-        /* API Status */
-        .api-status { position: fixed; bottom: 20px; right: 20px; padding: 1rem 1.5rem; border-radius: 12px; font-weight: 600; z-index: 1000; }
-        .api-status.online { background: #28a745; color: white; }
-        .api-status.offline { background: #dc3545; color: white; }
-        .api-status.checking { background: #ffc107; color: var(--primary); }
-        
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fanfare KNA Ulft — Kunst Na Arbeid sinds 1919</title>
+<meta name="description" content="Fanfare Kunst Na Arbeid Ulft — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek. Kom muziek maken bij KNA!">
+<link rel="icon" type="image/jpeg" href="images/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1a1a2e;--navy2:#16213e;--navy3:#0f3460;--blue:#2563eb;--glow:#3b82f6;--lite:#60a5fa;--pale:#93c5fd;--ice:#dbeafe;--white:#fff;--offw:#f0f4ff;--gold:#c9a84c;--dark:#0f172a;--muted:#475569;--liteg:#94a3b8;--grad:linear-gradient(135deg,#0f3460,#1a1a2e 50%,#16213e)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--offw);color:var(--dark);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* PRELOADER */
+.preloader{position:fixed;inset:0;background:var(--navy);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+.preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.preloader-logo{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:var(--white)}
+.preloader-logo span{color:var(--glow)}
+.preloader-sub{color:var(--liteg);font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;margin:.5rem 0 2rem}
+.preloader-bar{width:200px;height:2px;background:rgba(59,130,246,.2);border-radius:2px;overflow:hidden}
+.preloader-bar-fill{height:100%;background:var(--glow);border-radius:2px;animation:loadBar 2s ease-out forwards}
+.preloader-dots{margin-top:1.5rem;display:flex;gap:.5rem}
+.preloader-dots span{width:8px;height:8px;background:var(--glow);border-radius:50%;animation:dot 1.4s ease-in-out infinite}
+.preloader-dots span:nth-child(2){animation-delay:.2s}
+.preloader-dots span:nth-child(3){animation-delay:.4s}
+@keyframes loadBar{from{width:0}to{width:100%}}
+@keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* SCROLL PROGRESS */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--glow),var(--lite));z-index:100001;width:0%;transition:width .1s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;transition:all .5s cubic-bezier(.4,0,.2,1)}
+nav.scrolled{background:rgba(26,26,46,.97);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);padding:.7rem 4rem;box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--white)}
+.nav-logo-icon{width:40px;height:40px;border-radius:10px;overflow:hidden;border:2px solid var(--glow)}
+.nav-logo-icon img{width:100%;height:100%;object-fit:cover}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900}
+.nav-logo-text em{color:var(--glow);font-style:normal}
+.nav-links{display:flex;list-style:none;gap:2.5rem;align-items:center}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.75);font-weight:500;font-size:.85rem;transition:all .3s;text-transform:uppercase;letter-spacing:.08em;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--glow);transition:width .3s}
+.nav-links a:hover{color:var(--lite)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--glow);color:var(--white);padding:.65rem 1.6rem;border-radius:100px;text-decoration:none;font-weight:700;font-size:.8rem;transition:all .4s cubic-bezier(.4,0,.2,1);letter-spacing:.05em;text-transform:uppercase}
+.nav-cta:hover{background:var(--white);color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 25px rgba(59,130,246,.4)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:10002;padding:8px}
+.hamburger span{width:28px;height:2px;background:var(--white);transition:all .3s}
+
+/* MOBILE MENU */
+.mobile-menu{position:fixed;inset:0;background:var(--navy);z-index:100001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:all .5s}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{color:var(--white);text-decoration:none;font-family:'Playfair Display',serif;font-size:2rem;font-weight:600;transition:color .3s}
+.mobile-menu a:hover{color:var(--glow)}
+.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--white);font-size:2.5rem;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--navy)}
+.hero-video{position:absolute;inset:0;z-index:1;overflow:hidden}
+.hero-video iframe{position:absolute;top:50%;left:50%;width:100vw;height:100vh;transform:translate(-50%,-50%) scale(1.2);pointer-events:none;border:0}
+.hero-video::before{content:'';position:absolute;inset:0;background:url('images/hero-banner.png') center/cover no-repeat;z-index:-1}
+.hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(15,52,96,.55) 0%,rgba(26,26,46,.45) 30%,rgba(26,26,46,.65) 60%,rgba(15,23,42,.95) 100%)}
+.hero-vignette{position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse at center,transparent 40%,rgba(15,23,42,.7) 100%)}
+.floating-notes{position:absolute;inset:0;z-index:4;overflow:hidden;pointer-events:none}
+.note{position:absolute;color:var(--lite);opacity:.06;font-size:5rem;animation:floatUp 25s linear infinite}
+.note:nth-child(1){left:5%;top:80%;animation-duration:28s;font-size:3rem}
+.note:nth-child(2){left:20%;top:90%;animation-duration:22s;animation-delay:-5s}
+.note:nth-child(3){left:40%;top:85%;animation-duration:30s;animation-delay:-12s;font-size:4rem}
+.note:nth-child(4){left:65%;top:95%;animation-duration:26s;animation-delay:-8s}
+.note:nth-child(5){left:80%;top:75%;animation-duration:35s;animation-delay:-15s;font-size:4.5rem}
+.note:nth-child(6){left:92%;top:88%;animation-duration:20s;animation-delay:-3s;font-size:3.5rem}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0deg);opacity:.06}10%{opacity:.1}90%{opacity:.04}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+.hero-content{position:relative;z-index:5;text-align:center;max-width:900px;padding:2rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);color:var(--lite);padding:.5rem 1.3rem;border-radius:100px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s .7s forwards}
+.hero-title em{color:var(--glow);font-style:italic}
+.hero-sub{font-size:clamp(1rem,1.8vw,1.25rem);color:rgba(255,255,255,.7);max-width:620px;margin:0 auto 2.5rem;line-height:1.8;opacity:0;animation:fadeUp .8s .9s forwards}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1.1s forwards}
+
+/* BUTTONS */
+.btn-glow{background:var(--glow);color:var(--white);padding:1rem 2.5rem;border-radius:100px;text-decoration:none;font-weight:700;font-size:.9rem;transition:all .4s cubic-bezier(.4,0,.2,1);letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer;position:relative;overflow:hidden}
+.btn-glow::after{content:'';position:absolute;inset:-2px;background:linear-gradient(45deg,var(--blue),var(--glow),var(--lite),var(--glow),var(--blue));background-size:400% 400%;border-radius:100px;z-index:-1;animation:glowR 3s linear infinite;opacity:0;transition:opacity .4s}
+.btn-glow:hover::after{opacity:1}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(59,130,246,.5)}
+@keyframes glowR{from{background-position:0% 50%}to{background-position:400% 50%}}
+.btn-ghost{background:transparent;color:var(--white);padding:1rem 2.5rem;border-radius:100px;text-decoration:none;font-weight:600;font-size:.9rem;border:2px solid rgba(255,255,255,.25);transition:all .4s;letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem}
+.btn-ghost:hover{border-color:var(--glow);color:var(--lite);background:rgba(59,130,246,.1);transform:translateY(-3px)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:5;color:var(--white);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;opacity:0;animation:fadeUp .8s 1.5s forwards}
+.hero-scroll-arrow{width:24px;height:24px;border-right:2px solid rgba(255,255,255,.5);border-bottom:2px solid rgba(255,255,255,.5);transform:rotate(45deg);animation:bounce 2s infinite}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:rotate(45deg) translateY(0)}40%{transform:rotate(45deg) translateY(-8px)}60%{transform:rotate(45deg) translateY(-4px)}}
+
+/* MUSIC BAR */
+.music-bar{background:var(--navy);border-top:1px solid rgba(59,130,246,.15);padding:1rem 4rem;display:flex;align-items:center;justify-content:center;gap:1.5rem}
+.music-bar-play{width:44px;height:44px;border-radius:50%;background:var(--glow);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s;flex-shrink:0}
+.music-bar-play:hover{background:var(--lite);transform:scale(1.1)}
+.music-bar-info{color:rgba(255,255,255,.6);font-size:.85rem}
+.music-bar-info strong{color:var(--white);display:block;font-size:.95rem}
+.visualizer{display:flex;align-items:flex-end;gap:2px;height:30px}
+.visualizer-bar{width:3px;background:var(--glow);border-radius:2px;transition:height .15s ease}
+.visualizer.active .visualizer-bar{animation:viz 1s ease-in-out infinite alternate}
+.visualizer-bar:nth-child(1){animation-delay:0s}.visualizer-bar:nth-child(2){animation-delay:.1s}.visualizer-bar:nth-child(3){animation-delay:.2s}.visualizer-bar:nth-child(4){animation-delay:.3s}.visualizer-bar:nth-child(5){animation-delay:.15s}.visualizer-bar:nth-child(6){animation-delay:.05s}.visualizer-bar:nth-child(7){animation-delay:.25s}
+@keyframes viz{from{height:4px}to{height:28px}}
+
+/* STATS */
+.stats{background:var(--grad);padding:4rem 3rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;position:relative;overflow:hidden}
+.stat{text-align:center;padding:2.5rem 1rem;position:relative}
+.stat::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:rgba(96,165,250,.2)}
+.stat:last-child::after{display:none}
+.stat-number{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;color:var(--glow);display:block;line-height:1}
+.stat-label{font-size:.75rem;color:rgba(255,255,255,.45);letter-spacing:.15em;text-transform:uppercase;margin-top:.8rem;display:block}
+
+/* SECTIONS COMMON */
+section{padding:7rem 4rem}
+.section-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:.8rem;display:inline-flex;align-items:center;gap:.8rem}
+.section-label::before{content:'';width:30px;height:2px;background:var(--blue)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}.rd5{transition-delay:.5s}
+
+/* ABOUT */
+.about{background:var(--offw);display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:center}
+.about-text p{color:var(--muted);margin-bottom:1.2rem;line-height:1.85;font-size:1.05rem}
+.about-photos{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-photo{border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
+.about-photo:first-child{grid-row:span 2}
+.about-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.about-photo:hover img{transform:scale(1.06)}
+.about-quote{background:var(--navy);color:var(--white);padding:2.5rem;border-radius:16px;position:relative;margin-top:2rem;overflow:hidden;border-left:4px solid var(--glow)}
+.about-quote::before{content:'\201C';font-family:'Playfair Display',serif;font-size:6rem;color:var(--glow);opacity:.15;position:absolute;top:-1rem;left:1rem;line-height:1}
+.about-quote-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;position:relative;z-index:1}
+.about-quote-author{margin-top:1rem;font-size:.8rem;color:var(--lite);letter-spacing:.1em;text-transform:uppercase}
+
+/* PHOTOS */
+.photos{background:var(--navy);padding:5rem 3rem}
+.photos-header{text-align:center;margin-bottom:4rem}
+.photos-header .section-title{color:var(--white)}
+.photo-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:280px 280px;gap:1rem;max-width:1200px;margin:0 auto}
+.photo-card{position:relative;border-radius:16px;overflow:hidden;cursor:pointer}
+.photo-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.photo-card:hover img{transform:scale(1.06)}
+.photo-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,52,96,.9) 100%);display:flex;align-items:flex-end;padding:1.5rem;opacity:0;transition:opacity .4s}
+.photo-card:hover .photo-card-overlay{opacity:1}
+.photo-card-caption{color:var(--white);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600}
+
+/* ACTIVITIES */
+.activities{background:var(--white);padding:7rem 4rem}
+.activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;margin:0 auto}
+.activity-card{background:var(--offw);padding:2.5rem;border-radius:16px;border-top:4px solid var(--glow);transition:all .5s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.activity-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,.05),transparent);opacity:0;transition:opacity .4s}
+.activity-card:hover{transform:translateY(-12px);box-shadow:0 25px 60px rgba(59,130,246,.15)}
+.activity-card:hover::after{opacity:1}
+.activity-icon{font-size:2.5rem;margin-bottom:1rem}
+.activity-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.8rem}
+.activity-text{color:var(--muted);font-size:.95rem;line-height:1.7}
+
+/* CTA BANNER */
+.cta-banner{position:relative;background:var(--navy3);padding:6rem 4rem;text-align:center;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:url('images/concert-photo.jpg') center/cover no-repeat;opacity:.15}
+.cta-banner-inner{position:relative;z-index:2}
+.cta-banner h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--white);margin-bottom:1rem}
+.cta-banner h2 em{color:var(--glow);font-style:italic}
+.cta-banner p{color:rgba(255,255,255,.7);font-size:1.1rem;max-width:600px;margin:0 auto 2rem}
+
+/* AGENDA */
+.agenda{background:var(--navy);color:var(--white);padding:7rem 4rem;position:relative;overflow:hidden}
+.agenda::before{content:'2026';position:absolute;top:50%;left:-5%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:15rem;font-weight:900;color:var(--glow);opacity:.03;pointer-events:none}
+.agenda .section-header{text-align:center}
+.agenda .section-title{color:var(--white)}
+.agenda-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:.75rem}
+.agenda-item{display:grid;grid-template-columns:80px 1fr auto;gap:1.5rem;align-items:center;padding:1.5rem;background:rgba(255,255,255,.04);border-radius:12px;border-left:4px solid var(--glow);transition:all .4s cubic-bezier(.4,0,.2,1);cursor:default}
+.agenda-item:hover{background:rgba(59,130,246,.1);transform:translateX(8px)}
+.agenda-day{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--glow)}
+.agenda-month{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;opacity:.5}
+.agenda-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700}
+.agenda-location{font-size:.85rem;opacity:.5;margin-top:.2rem}
+.agenda-tag{background:var(--glow);color:var(--white);padding:.4rem 1rem;border-radius:100px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+
+/* EDUCATION */
+.education{background:var(--offw);display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+.edu-text p{color:var(--muted);line-height:1.85;margin-bottom:1.5rem}
+.edu-cards{display:flex;flex-direction:column;gap:1.2rem}
+.edu-card{background:var(--white);padding:2rem;border-radius:16px;display:flex;gap:1.5rem;align-items:flex-start;transition:all .4s;border:2px solid transparent}
+.edu-card:hover{border-color:var(--glow);transform:translateX(8px);box-shadow:0 10px 30px rgba(59,130,246,.15)}
+.edu-badge{background:var(--glow);color:var(--white);width:3.5rem;height:3.5rem;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.edu-card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
+.edu-card-text{color:var(--muted);font-size:.92rem;line-height:1.65}
+
+/* SIGNUP */
+.signup{background:linear-gradient(135deg,var(--blue) 0%,#1e40af 100%);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:7rem 4rem}
+.signup-text{color:rgba(255,255,255,.8);line-height:1.85;margin-bottom:2rem}
+.signup-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:flex;gap:1rem}
+.form-input,.form-select{flex:1;padding:1rem 1.2rem;border:2px solid rgba(255,255,255,.2);border-radius:12px;font-family:inherit;font-size:1rem;background:rgba(255,255,255,.1);color:var(--white);transition:all .3s}
+.form-input::placeholder{color:rgba(255,255,255,.5)}
+.form-input:focus,.form-select:focus{outline:none;border-color:var(--lite);background:rgba(255,255,255,.15);box-shadow:0 0 0 4px rgba(96,165,250,.2)}
+.form-select option{color:var(--dark);background:var(--white)}
+.btn-white{background:var(--white);color:var(--blue);padding:1.1rem 2rem;border:none;border-radius:100px;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .4s;letter-spacing:.05em;text-transform:uppercase}
+.btn-white:hover{background:var(--pale);transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,.3)}
+
+/* MAP */
+.map-section{background:var(--dark);padding:0;position:relative}
+.map-section iframe{width:100%;height:400px;border:none;filter:grayscale(80%) sepia(20%) contrast(1.1)}
+
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:5rem 4rem 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand p{margin-top:1rem;line-height:1.7;max-width:300px;font-size:.95rem}
+.footer-col h4{color:var(--glow);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.6rem}
+.footer-col a{color:rgba(255,255,255,.45);text-decoration:none;transition:all .3s;font-size:.9rem}
+.footer-col a:hover{color:var(--glow);padding-left:4px}
+.footer-bottom{border-top:1px solid rgba(59,130,246,.15);padding-top:2rem;display:flex;justify-content:space-between;font-size:.8rem;flex-wrap:wrap;gap:1rem}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;background:var(--glow);color:var(--white);border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:all .4s;z-index:9998;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(59,130,246,.4)}
+.back-to-top.visible{opacity:1;visibility:visible}
+.back-to-top:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(59,130,246,.5);background:var(--lite)}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:100000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .4s;cursor:zoom-out}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:8px;object-fit:contain;box-shadow:0 20px 80px rgba(0,0,0,.5)}
+.lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--white);font-size:2.5rem;cursor:pointer}
+
+/* VIDEOS */
+.videos-section{background:var(--navy);padding:7rem 4rem}
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
+.video-card{background:rgba(255,255,255,.05);border-radius:12px;overflow:hidden;border:1px solid rgba(59,130,246,.15);transition:all .4s}
+.video-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(59,130,246,.2);border-color:var(--glow)}
+.video-info{padding:1.2rem 1.5rem}
+.video-info h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.3rem}
+.video-info p{color:rgba(255,255,255,.6);font-size:.85rem}
+@media(max-width:768px){.video-grid{grid-template-columns:1fr}}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.hero{min-height:85vh}.about,.education,.signup{grid-template-columns:1fr}.about-photos{display:none}.activity-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2)::after{display:none}.agenda-item{grid-template-columns:70px 1fr}.agenda-tag{display:none}.footer-grid{grid-template-columns:1fr 1fr}.photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.music-bar{padding:1rem 2rem;gap:1rem}}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}section,.about,.education,.signup,.activities,.agenda{padding:4rem 1.5rem}.hero-content{padding:1.5rem}.activity-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem}.form-row{flex-direction:column}.photo-grid{grid-template-columns:1fr 1fr;gap:.5rem}.footer-grid{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr}.photo-card{min-height:200px}.music-bar{flex-direction:column;gap:.5rem;padding:.8rem 1rem}}
+</style>
 </head>
 <body>
-    <!-- API Status Indicator -->
-    <div id="api-status" class="api-status checking">
-        <i class="fas fa-sync fa-spin"></i> Checking API...
-    </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo"><i class="fas fa-music" style="color: var(--gold);"></i> KNA <span>Ulft</span></div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#activiteiten">Agenda</a></li>
-            <li><a href="#videos">Video's</a></li>
-            <li><a href="#opleidingen">Opleidingen</a></li>
-            <li><a href="#bestuur">Bestuur</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
-    <!-- Hero -->
-    <section class="hero" id="home" style="background: linear-gradient(135deg, rgba(26,26,46,0.85) 0%, rgba(22,33,62,0.9) 100%), url('https://images.unsplash.com/photo-1511192330375-d5a85b07b9e0?w=1920&q=80'); background-size: cover; background-position: center;">
-        <div class="hero-content">
-            <div class="hero-badge">🎺 FULL-STACK v5.0</div>
-            <h1>Al meer dan<br><em>100 jaar</em><br>muziek in de Achterhoek</h1>
-            <p class="hero-subtitle">Fanfare Kunst Na Arbeid Ulft<br>o.l.v. Henrite Jansma-Rusch</p>
-            <a href="#activiteiten" class="btn-primary"><i class="fas fa-database"></i> Live Data Bekijken</a>
-        </div>
-    </section>
-    
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat">
-            <h3 id="stat-jaar">106</h3>
-            <div class="stat-label">Jaar traditie</div>
-        </div>
-        <div class="stat">
-            <h3 id="stat-leden">~35</h3>
-            <div class="stat-label">Actieve leden</div>
-        </div>
-        <div class="stat">
-            <h3 id="stat-optredens">4+</h3>
-            <div class="stat-label">Optredens/jaar</div>
-        </div>
-        <div class="stat">
-            <h3 id="stat-api">∞</h3>
-            <div class="stat-label">API Requests</div>
-        </div>
-    </div>
-    
-    <!-- Activiteiten -->
-    <section id="activiteiten">
-        <div class="section-header">
-            <h2>📅 Aankomende Activiteiten</h2>
-            <p>Live data van onze database</p>
-        </div>
-        <div class="grid" id="activiteiten-container">
-            <div class="loading"><i class="fas fa-spinner"></i><br>Loading from API...</div>
-        </div>
-    </section>
-    
-    <!-- Opleidingen -->
-    <section class="opleidingen-section" id="opleidingen">
-        <div class="section-header" style="color: white;">
-            <h2>🎓 Muziekopleidingen</h2>
-            <p style="color: rgba(255,255,255,0.8);">Leer muziek maken bij KNA</p>
-        </div>
-        <div class="opleiding-grid">
-            <div class="opleiding-card">
-                <span class="opleiding-icon">🎵</span>
-                <h3>Muzipluz!</h3>
-                <div class="subtitle">Voor beginners</div>
-                <p>Jong en oud leren samen muziek maken. Geen ervaring nodig!</p>
-                <ul>
-                    <li>Maandelijkse bijeenkomsten</li>
-                    <li>Samen in B-orkest</li>
-                    <li>Professionele begeleiding</li>
-                </ul>
-            </div>
-            <div class="opleiding-card">
-                <span class="opleiding-icon">🌟</span>
-                <h3>Muzikidz!</h3>
-                <div class="subtitle">Voor kinderen</div>
-                <p>Spelenderwijs een instrument leren!</p>
-                <ul>
-                    <li>Kindvriendelijke aanpak</li>
-                    <li>Leren via spelletjes</li>
-                    <li>Onder professionele leiding</li>
-                </ul>
-            </div>
-            <div class="opleiding-card">
-                <span class="opleiding-icon">🎺</span>
-                <h3>Opleidingsorkest</h3>
-                <div class="subtitle">Het B-orkest</div>
-                <p>Leerlingen spelen samen en leren van elkaar.</p>
-                <ul>
-                    <li>Wekelijkse repetities</li>
-                    <li>Ma 18:30-19:15</li>
-                    <li>Voorbereiding A-orkest</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Featured Image -->
-    <section style="padding: 4rem 5%; background: var(--cream);">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <img src="https://jupitermusic.com/upload/images/JTR1160R%20Resonance%20Ring%20KV_2.jpg" 
-                alt="Jupiter Resonance Ring Trompet" 
-                style="max-width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
-            <p style="margin-top: 1.5rem; color: #666; font-style: italic;">Jupiter Resonance Ring - Professioneel instrument</p>
-        </div>
-    </section>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+<div class="preloader-logo">KNA <span>Ulft</span></div>
+<div class="preloader-sub">Kunst Na Arbeid · Sinds 1919</div>
+<div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+<div class="preloader-dots"><span></span><span></span><span></span></div>
+</div>
 
-    <!-- YouTube Videos -->
-    <section id="videos" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 6rem 5%;">
-        <div class="section-header" style="color: white;">
-            <h2>🎬 Video's</h2>
-            <p style="color: rgba(255,255,255,0.8);">Bekijk onze optredens op YouTube</p>
-        </div>
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div style="position: relative; padding-bottom: 56.25%; background: #000;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                            src="https://www.youtube.com/embed/hF9JE7whLC8" 
-                            title="KNA Ulft Video 1" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">🎵 Copacabana</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem;">100 jaar KNA Ulft • 377 weergaven</p>
-                    </div>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div style="position: relative; padding-bottom: 56.25%; background: #000;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                            src="https://www.youtube.com/embed/N4o6hhvlWiE" 
-                            title="KNA Ulft Video 2" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">🎺 Mac the Knife</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem;">100 jaar KNA Ulft • 253 weergaven</p>
-                    </div>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div style="position: relative; padding-bottom: 56.25%; background: #000;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                            src="https://www.youtube.com/embed/aXOoz6CTy2Q" 
-                            title="KNA Ulft Video 3" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">⭐ Voici les clés</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem;">Met Ellen ten Damme • 386 weergaven</p>
-                    </div>
-                </div>
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div style="position: relative; padding-bottom: 56.25%; background: #000;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                            src="https://www.youtube.com/embed/zjppVlsWwoo" 
-                            title="KNA Ulft Video 4" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 style="color: var(--gold); margin-bottom: 0.5rem;">🎬 Alors on danse</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem;">100 jaar KNA Ulft • Live optreden</p>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 16px; border: 2px solid #FF0000;">
-                <i class="fab fa-youtube" style="font-size: 4rem; color: #FF0000; margin-bottom: 1rem;"></i>
-                <h3 style="margin-bottom: 1rem;">Meer video's op ons YouTube kanaal</h3>
-                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Abonneer je voor de laatste optredenen en updates!</p>
-                <a href="https://www.youtube.com/@fanfarekunstnaarbeid8546" target="_blank" style="display: inline-flex; align-items: center; gap: 0.8rem; background: #FF0000; color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <i class="fab fa-youtube"></i> Bezoek ons YouTube kanaal
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Nieuws -->
-    <section id="nieuws" style="background: white;">
-        <div class="section-header">
-            <h2>📰 Laatste Nieuws</h2>
-            <p>Live uit onze database</p>
-        </div>
-        <div class="grid" id="nieuws-container">
-            <div class="loading"><i class="fas fa-spinner"></i><br>Loading news...</div>
-        </div>
-    </section>
-    
-    <!-- Bestuur -->
-    <section id="bestuur">
-        <div class="section-header">
-            <h2>👥 Ons Bestuur</h2>
-            <p>Live data uit database</p>
-        </div>
-        <div class="grid" id="bestuur-container">
-            <div class="loading"><i class="fas fa-spinner"></i><br>Loading bestuur...</div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer id="contact">
-        <h2>Neem Contact Op</h2>
-        <p style="font-size: 1.3rem; margin-bottom: 2rem;">Fanfare Kunst Na Arbeid Ulft</p>
-        <p><i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 0.5rem;"></i> Clubgebouw 'de Key', Frank Daamenstraat 39a</p>
-        <p><i class="fas fa-envelope" style="color: var(--gold); margin-right: 0.5rem;"></i> info@kna-ulft.nl</p>
-        <div class="social-links">
-            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p style="margin-top: 2rem; opacity: 0.6;">&copy; 2025 KNA Ulft | Created by ANA ©NicketAI</p>
-    </footer>
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
-    <script>
-        // 🔥 RENDER API URL - LIVE!
-        const API_URL = 'https://kna-ulft.onrender.com';
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+<button class="mobile-menu-close" onclick="closeMobile()">&times;</button>
+<a href="#over" onclick="closeMobile()">Over ons</a>
+<a href="#fotos" onclick="closeMobile()">Foto's</a>
+<a href="#videos" onclick="closeMobile()">Video's</a>
+<a href="#activiteiten" onclick="closeMobile()">Activiteiten</a>
+<a href="#agenda" onclick="closeMobile()">Agenda</a>
+<a href="#onderwijs" onclick="closeMobile()">Onderwijs</a>
+<a href="#aanmelden" onclick="closeMobile()">Aanmelden</a>
+</div>
 
-        // Update API status
-        function updateApiStatus(status, message) {
-            const el = document.getElementById('api-status');
-            el.className = `api-status ${status}`;
-            el.innerHTML = message;
-        }
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<button class="lightbox-close">&times;</button>
+<img id="lightboxImg" src="" alt="">
+</div>
 
-        // Check API health
-        async function checkApi() {
-            try {
-                const response = await fetch(`${API_URL}/health`);
-                if (response.ok) {
-                    updateApiStatus('online', '<i class="fas fa-check-circle"></i> API Online');
-                    return true;
-                }
-            } catch (error) {
-                console.error('API not available:', error);
-            }
-            updateApiStatus('offline', '<i class="fas fa-exclamation-triangle"></i> API Offline - Using fallback data');
-            return false;
-        }
+<!-- Nav -->
+<nav id="navbar">
+<a href="#home" class="nav-logo">
+<div class="nav-logo-icon"><img src="images/logo.jpg" alt="KNA"></div>
+<span class="nav-logo-text">KNA <em>Ulft</em></span>
+</a>
+<ul class="nav-links">
+<li><a href="#over">Over ons</a></li>
+<li><a href="#fotos">Foto's</a></li>
+<li><a href="#videos">Video's</a></li>
+<li><a href="#activiteiten">Activiteiten</a></li>
+<li><a href="#agenda">Agenda</a></li>
+<li><a href="#onderwijs">Onderwijs</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<a href="#aanmelden" class="nav-cta">Word lid &rarr;</a>
+<div class="hamburger" onclick="openMobile()"><span></span><span></span><span></span></div>
+</nav>
 
-        // Load Activiteiten
-        async function loadActiviteiten() {
-            const container = document.getElementById('activiteiten-container');
-            try {
-                const response = await fetch(`${API_URL}/api/activiteiten`);
-                if (!response.ok) throw new Error('API error');
-                const data = await response.json();
-                
-                if (data.length === 0) {
-                    container.innerHTML = '<p>Geen activiteiten gevonden.</p>';
-                    return;
-                }
-                
-                container.innerHTML = data.map(item => `
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="date">${new Date(item.datum).getDate()}</div>
-                            <div style="font-size: 1.1rem; opacity: 0.9;">${new Date(item.datum).toLocaleDateString('nl-NL', {month: 'long', year: 'numeric'})}</div>
-                        </div>
-                        <div class="card-content">
-                            <h3>${item.titel}</h3>
-                            <p>${item.beschrijving || ''}</p>
-                            <div class="meta">
-                                <div class="meta-item"><i class="fas fa-clock"></i> ${item.tijd || 'TBA'}</div>
-                                <div class="meta-item"><i class="fas fa-map-marker-alt"></i> ${item.locatie || 'TBA'}</div>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Error:', error);
-                container.innerHTML = `
-                    <div class="error">
-                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                        <p>API niet bereikbaar</p>
-                        <p style="font-size: 0.9rem;">Zorg dat de backend draait op Render</p>
-                    </div>
-                `;
-            }
-        }
+<!-- Hero with YouTube video background -->
+<section class="hero" id="home">
+<div class="hero-video" id="heroVideo">
+<iframe id="ytPlayer" src="https://www.youtube.com/embed/zUkK7QrDLYw?autoplay=1&mute=1&loop=1&playlist=zUkK7QrDLYw&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+<div class="hero-overlay"></div>
+<div class="hero-vignette"></div>
+<div class="floating-notes">
+<div class="note">𝄞</div><div class="note">♩</div><div class="note">♪</div><div class="note">𝄢</div><div class="note">♬</div><div class="note">♫</div>
+</div>
+<div class="hero-content">
+<div class="hero-badge">🎺 Sinds 1919 — Al meer dan 100 jaar muziek in Ulft</div>
+<h1 class="hero-title">Fanfare<br><em>Kunst Na Arbeid</em></h1>
+<p class="hero-sub">De gezelligste fanfare van de Achterhoek. Wij spelen voor iedereen — van jong tot oud, beginner tot gevorderd. Kom erbij!</p>
+<div class="hero-actions">
+<a href="#aanmelden" class="btn-glow">🎵 Word lid</a>
+<a href="#over" class="btn-ghost">Ontdek KNA</a>
+</div>
+</div>
+<a href="#stats" class="hero-scroll"><span>Ontdek</span><div class="hero-scroll-arrow"></div></a>
+</section>
 
-        // Load Nieuws
-        async function loadNieuws() {
-            const container = document.getElementById('nieuws-container');
-            try {
-                const response = await fetch(`${API_URL}/api/nieuws`);
-                if (!response.ok) throw new Error('API error');
-                const data = await response.json();
-                
-                container.innerHTML = data.map(item => `
-                    <div class="card">
-                        <div class="card-content">
-                            <h3>${item.titel}</h3>
-                            <p>${item.content.substring(0, 150)}...</p>
-                            <p style="color: #666; font-size: 0.9em; margin-top: 1rem;">
-                                <i class="fas fa-user"></i> ${item.auteur || 'Anoniem'} | 
-                                <i class="fas fa-calendar"></i> ${new Date(item.created_at).toLocaleDateString('nl-NL')}
-                            </p>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                container.innerHTML = '<p>Nieuws laden mislukt</p>';
-            }
-        }
+<!-- Music player bar -->
+<div class="music-bar">
+<button class="music-bar-play" id="musicToggle" onclick="toggleMusic()">▶</button>
+<div class="music-bar-info">
+<strong>100 jaar KNA — Jubileumconcert</strong>
+Fanfare Kunst Na Arbeid Ulft
+</div>
+<div class="visualizer" id="visualizer">
+<div class="visualizer-bar"></div><div class="visualizer-bar"></div><div class="visualizer-bar"></div>
+<div class="visualizer-bar"></div><div class="visualizer-bar"></div><div class="visualizer-bar"></div><div class="visualizer-bar"></div>
+</div>
+</div>
 
-        // Load Bestuur
-        async function loadBestuur() {
-            const container = document.getElementById('bestuur-container');
-            try {
-                const response = await fetch(`${API_URL}/api/bestuur`);
-                if (!response.ok) throw new Error('API error');
-                const data = await response.json();
-                
-                container.innerHTML = data.map(item => `
-                    <div class="card bestuurslid-card">
-                        <div class="avatar">👤</div>
-                        <h3>${item.naam}</h3>
-                        <div class="functie">${item.functie}</div>
-                        <div style="color: #666; font-size: 0.95rem;">
-                            <i class="fas fa-envelope" style="color: var(--gold);"></i> ${item.email || 'info@kna-ulft.nl'}
-                        </div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                container.innerHTML = '<p>Bestuur laden mislukt</p>';
-            }
-        }
+<!-- Stats -->
+<div class="stats" id="stats">
+<div class="stat reveal"><span class="stat-number" data-target="106">0</span><span class="stat-label">Jaar traditie</span></div>
+<div class="stat reveal rd1"><span class="stat-number" data-target="35">0</span><span class="stat-label">Actieve leden</span></div>
+<div class="stat reveal rd2"><span class="stat-number" data-target="4">0</span><span class="stat-label">Optredens per jaar</span></div>
+<div class="stat reveal rd3"><span class="stat-number">∞</span><span class="stat-label">Gezelligheid</span></div>
+</div>
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', async () => {
-            const apiOnline = await checkApi();
-            if (apiOnline) {
-                loadActiviteiten();
-                loadNieuws();
-                loadBestuur();
-            } else {
-                // Fallback data
-                document.getElementById('activiteiten-container').innerHTML = `
-                    <div class="card">
-                        <div class="card-content">
-                            <h3>⚠️ API Offline</h3>
-                            <p>De backend draait nog niet op Render. Zet eerst de API online!</p>
-                            <p>Ga naar render.com en deploy de kna-backend service.</p>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-    </script>
+<!-- About -->
+<section class="about" id="over">
+<div class="about-text">
+<span class="section-label reveal">Over ons</span>
+<h2 class="section-title reveal rd1">Muziek voor<br>iedereen in Ulft</h2>
+<p class="reveal rd2">Fanfare KNA — Kunst Na Arbeid — is al meer dan honderd jaar de muzikale trots van Ulft. Opgericht op <strong>15 augustus 1919</strong> door pastoor Jan Wijtze de Vries en 12 parochianen, met als doel: muziek voor arbeiders uit de omgeving — vandaar "Kunst na Arbeid".</p>
+<p class="reveal rd3">We zijn een vereniging voor en door leden, waar iedereen op zijn eigen manier muziek kan maken. Onder leiding van dirigente <strong>Henrite Jansma-Rusch</strong> genieten we sinds 2016 van nieuw elan en stijgend niveau.</p>
+<p class="reveal rd4"><strong>Elke maandagavond van 19:30 tot 21:30</strong> repeteren we in clubgebouw <em>'de Key'</em> aan de Frank Daamenstraat 39a in Ulft.</p>
+<a href="#aanmelden" class="btn-glow reveal rd4" style="margin-top:1rem;">Kom een keer meeluisteren</a>
+<div class="about-quote reveal rd5">
+<p class="about-quote-text">"Iedereen vindt een fijne plek binnen onze fanfare. Muziek maken is het mooist als je het samen doet."</p>
+<p class="about-quote-author">— Fanfare KNA Ulft</p>
+</div>
+</div>
+<div class="about-photos reveal rd2">
+<div class="about-photo" style="aspect-ratio:1/1.2;min-height:300px">
+<img src="images/group-photo.jpg" alt="KNA Ulft fanfare" onclick="openLightbox('images/group-photo.jpg')" style="cursor:zoom-in">
+</div>
+<div class="about-photo" style="aspect-ratio:1/1">
+<img src="images/thumb1.jpg" alt="KNA muzikanten" onclick="openLightbox('images/thumb1.jpg')" style="cursor:zoom-in">
+</div>
+<div class="about-photo" style="aspect-ratio:1/1">
+<img src="images/thumb2.jpg" alt="KNA optreden" onclick="openLightbox('images/thumb2.jpg')" style="cursor:zoom-in">
+</div>
+</div>
+</section>
+
+<!-- Photos -->
+<section class="photos" id="fotos">
+<div class="photos-header">
+<span class="section-label reveal" style="color:var(--glow)">Impressie</span>
+<h2 class="section-title reveal rd1" style="color:var(--white)">Beleving bij KNA</h2>
+</div>
+<div class="photo-grid">
+<div class="photo-card reveal" style="grid-row:span 2" onclick="openLightbox('images/group-photo.jpg')">
+<img src="images/group-photo.jpg" alt="KNA Ulft fanfare">
+<div class="photo-card-overlay"><span class="photo-card-caption">Samen muziek maken</span></div>
+</div>
+<div class="photo-card reveal rd1" onclick="openLightbox('images/concert-photo.jpg')">
+<img src="images/concert-photo.jpg" alt="Concert">
+<div class="photo-card-overlay"><span class="photo-card-caption">In concert</span></div>
+</div>
+<div class="photo-card reveal rd2" onclick="openLightbox('images/thumb1.jpg')">
+<img src="images/thumb1.jpg" alt="Repetitie">
+<div class="photo-card-overlay"><span class="photo-card-caption">Repetitie</span></div>
+</div>
+<div class="photo-card reveal rd3" onclick="openLightbox('images/thumb2.jpg')">
+<img src="images/thumb2.jpg" alt="Optreden">
+<div class="photo-card-overlay"><span class="photo-card-caption">Optreden</span></div>
+</div>
+<div class="photo-card reveal rd4" onclick="openLightbox('images/thumb3.jpg')">
+<img src="images/thumb3.jpg" alt="Samen spelen">
+<div class="photo-card-overlay"><span class="photo-card-caption">Samen spelen</span></div>
+</div>
+</div>
+</section>
+
+<!-- Activities -->
+<section class="activities" id="activiteiten">
+<div style="text-align:center;margin-bottom:4rem">
+<span class="section-label reveal">Activiteiten</span>
+<h2 class="section-title reveal rd1">Wat we doen</h2>
+</div>
+<div class="activity-grid">
+<div class="activity-card reveal"><div class="activity-icon">🎺</div><h3 class="activity-title">Concerten</h3><p class="activity-text">Meerdere keren per jaar verzorgen we concerten waarbij we ons beste werk laten horen. Onder andere het Nieuwjaarsconcert in het CIVON Innovatiecentrum.</p></div>
+<div class="activity-card reveal rd1"><div class="activity-icon">🥁</div><h3 class="activity-title">Straatoptredens</h3><p class="activity-text">Vier keer per jaar trekken we de straat op met marsmuziek: Carnaval, Koningsdag, Ulftse Avondvierdaagse en de Oerse Kermis.</p></div>
+<div class="activity-card reveal rd2"><div class="activity-icon">🎶</div><h3 class="activity-title">Wekelijkse repetitie</h3><p class="activity-text">Elke maandagavond van 19:30 tot 21:30 uur in clubgebouw 'de Key'. De nadruk ligt op muziek voor onze concerten.</p></div>
+<div class="activity-card reveal rd3"><div class="activity-icon">🎓</div><h3 class="activity-title">Muzipluz!</h3><p class="activity-text">Voor beginners van alle leeftijden: samen leren muziek maken. Jong en oud door elkaar in een warm en inclusief klimaat.</p></div>
+<div class="activity-card reveal rd4"><div class="activity-icon">🌟</div><h3 class="activity-title">Muzikidz!</h3><p class="activity-text">Speciaal voor jongere muzikanten: Muzikidz! is dé plek om op een leuke manier de fanfarewereld te ontdekken.</p></div>
+<div class="activity-card reveal rd5"><div class="activity-icon">🍻</div><h3 class="activity-title">Gezelligheid</h3><p class="activity-text">KNA is meer dan muziek — het is een hechte gemeenschap. Samen borrelen na de repetitie of een gezellig uitje.</p></div>
+</div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+<div class="cta-banner-inner reveal">
+<h2>Maak muziek.<br><em>Maak vrienden.</em></h2>
+<p>Bij KNA hoef je niet perfect te zijn — je hoeft alleen maar zin te hebben. Kom een keer kijken en ontdek het zelf.</p>
+<a href="#aanmelden" class="btn-glow">Proefles aanvragen &rarr;</a>
+</div>
+</section>
+
+<!-- Agenda -->
+<section class="agenda" id="agenda">
+<div class="section-header">
+<span class="section-label">Agenda 2026</span>
+<h2 class="section-title reveal" style="color:var(--white)">Komende evenementen</h2>
+</div>
+<div class="agenda-list">
+<div class="agenda-item reveal"><div><span class="agenda-day">2</span><br><span class="agenda-month">MRT</span></div><div><div class="agenda-name">Carnavalsoptocht Ulft</div><div class="agenda-location">📍 Ulft centrum</div></div><span class="agenda-tag">Straatoptreden</span></div>
+<div class="agenda-item reveal rd1"><div><span class="agenda-day">27</span><br><span class="agenda-month">APR</span></div><div><div class="agenda-name">Koningsdag Ulft</div><div class="agenda-location">📍 Ulft centrum</div></div><span class="agenda-tag">Mars</span></div>
+<div class="agenda-item reveal rd2"><div><span class="agenda-day">5</span><br><span class="agenda-month">MEI</span></div><div><div class="agenda-name">Bevrijdingsconcert</div><div class="agenda-location">📍 Kerk Varsselder-Veldhunten</div></div><span class="agenda-tag">Concert</span></div>
+<div class="agenda-item reveal rd3"><div><span class="agenda-day">7</span><br><span class="agenda-month">JUN</span></div><div><div class="agenda-name">Ulftse Avondvierdaagse</div><div class="agenda-location">📍 Zwarte Plein, Ulft</div></div><span class="agenda-tag">Mars</span></div>
+<div class="agenda-item reveal rd4"><div><span class="agenda-day">29</span><br><span class="agenda-month">NOV</span></div><div><div class="agenda-name">Najaarsconcert</div><div class="agenda-location">📍 CIVON Innovatiecentrum, Ulft · 14:00 uur</div></div><span class="agenda-tag">Concert</span></div>
+</div>
+<p style="margin-top:2.5rem;text-align:center;opacity:.5;font-size:.85rem">✦ Volg ons op <a href="https://www.facebook.com/FanfareKnaUlft" style="color:var(--glow)">Facebook</a> voor het laatste nieuws</p>
+</section>
+
+<!-- Education -->
+<section class="education" id="onderwijs">
+<div>
+<span class="section-label reveal">Muziekonderwijs</span>
+<h2 class="section-title reveal rd1">Leer muziek<br>maken bij KNA</h2>
+<p class="edu-text reveal rd2">Muziek leren is het leukst als je het samen doet. Bij KNA hoef je niet in je eentje te oefenen — je groeit samen met andere muzikanten van alle leeftijden. Na behalen van je A-diploma stroom je door naar het A-orkest.</p>
+<a href="#aanmelden" class="btn-glow reveal rd3">Informatie aanvragen</a>
+</div>
+<div class="edu-cards">
+<div class="edu-card reveal"><div class="edu-badge">🎵</div><div><h3 class="edu-card-title">Muzipluz! — Beginnerslessen</h3><p class="edu-card-text">Jong en oud leren samen muziek maken in een ontspannen setting. Geen ervaring nodig — alleen enthousiasme!</p></div></div>
+<div class="edu-card reveal rd1"><div class="edu-badge">🌟</div><div><h3 class="edu-card-title">Muzikidz! — Jeugdmuziek</h3><p class="edu-card-text">Speciaal voor kinderen: een eigen plek binnen KNA om spelenderwijs een instrument te leren.</p></div></div>
+<div class="edu-card reveal rd2"><div class="edu-badge">🎺</div><div><h3 class="edu-card-title">Opleidingsorkest (B-orkest)</h3><p class="edu-card-text">Alle leerlingen spelen samen in het B-orkest. Zo leer je niet alleen van je lessen, maar ook van en met elkaar.</p></div></div>
+<div class="edu-card reveal rd3"><div class="edu-badge">♿</div><div><h3 class="edu-card-title">Maatwerk voor iedereen</h3><p class="edu-card-text">Lukt het lopen op straat minder goed? We zoeken samen naar een oplossing die bij jou past. Inclusiviteit staat centraal.</p></div></div>
+</div>
+</section>
+
+<!-- Videos -->
+<section class="videos-section" id="videos">
+<div style="text-align:center;margin-bottom:4rem">
+<span class="section-label reveal" style="color:var(--glow)">Video's</span>
+<h2 class="section-title reveal rd1" style="color:var(--white)">Bekijk onze optredens</h2>
+</div>
+<div class="video-grid">
+<div class="video-card reveal" onclick="openVideo('hF9JE7whLC8')">
+<div class="video-thumb" style="position:relative;padding-bottom:56.25%;background:#000;border-radius:12px 12px 0 0;overflow:hidden">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/hF9JE7whLC8" title="Copacabana" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="video-info"><h3>🎵 Copacabana</h3><p>100 jaar KNA Ulft</p></div>
+</div>
+<div class="video-card reveal rd1" onclick="openVideo('N4o6hhvlWiE')">
+<div class="video-thumb" style="position:relative;padding-bottom:56.25%;background:#000;border-radius:12px 12px 0 0;overflow:hidden">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/N4o6hhvlWiE" title="Mac the Knife" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="video-info"><h3>🎺 Mac the Knife</h3><p>100 jaar KNA Ulft</p></div>
+</div>
+<div class="video-card reveal rd2" onclick="openVideo('aXOoz6CTy2Q')">
+<div class="video-thumb" style="position:relative;padding-bottom:56.25%;background:#000;border-radius:12px 12px 0 0;overflow:hidden">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/aXOoz6CTy2Q" title="Voici les clés" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="video-info"><h3>⭐ Voici les clés</h3><p>Met Ellen ten Damme</p></div>
+</div>
+<div class="video-card reveal rd3" onclick="openVideo('zjppVlsWwoo')">
+<div class="video-thumb" style="position:relative;padding-bottom:56.25%;background:#000;border-radius:12px 12px 0 0;overflow:hidden">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/zjppVlsWwoo" title="Alors on danse" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="video-info"><h3>🎬 Alors on danse</h3><p>100 jaar KNA Ulft</p></div>
+</div>
+</div>
+<div style="text-align:center;margin-top:3rem" class="reveal rd4">
+<a href="https://www.youtube.com/@fanfarekunstnaarbeid8546" target="_blank" class="btn-glow" style="background:#FF0000">▶ Meer video's op YouTube</a>
+</div>
+</section>
+
+<!-- Signup -->
+<section class="signup" id="aanmelden">
+<div>
+<span class="section-label reveal">Aanmelden</span>
+<h2 class="section-title reveal rd1" style="color:var(--white)">Word lid van<br>KNA Ulft</h2>
+<p class="signup-text reveal rd2">Wil je een keer komen kijken? Een instrument leren? Of direct lid worden? Laat hier je gegevens achter en we nemen contact met je op.</p>
+</div>
+<div>
+<form class="signup-form reveal rd3" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<div class="form-row"><input type="text" name="voornaam" class="form-input" placeholder="Voornaam" required><input type="text" name="achternaam" class="form-input" placeholder="Achternaam" required></div>
+<input type="email" name="email" class="form-input" placeholder="E-mailadres" required>
+<input type="tel" name="telefoon" class="form-input" placeholder="Telefoonnummer">
+<select name="interesse" class="form-select" required><option value="" disabled selected>Ik ben geïnteresseerd in...</option><option value="lid">Lid worden — volwassenen</option><option value="muzikidz">Muzikidz! (jeugd)</option><option value="muzipluz">Muzipluz! (beginners)</option><option value="kijken">Gewoon eens komen kijken</option><option value="anders">Anders</option></select>
+<button type="submit" class="btn-white">Stuur aanvraag &rarr;</button>
+</form>
+</div>
+</section>
+
+<!-- Map -->
+<section class="map-section"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2454.5!2d6.6156!3d51.9164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFrank+Daamenstraat+39a%2C+Ulft!5e0!3m2!1snl!2snl!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></section>
+
+<!-- Footer -->
+<footer id="contact">
+<div class="footer-grid">
+<div class="footer-brand">
+<div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--white)">KNA <em style="color:var(--glow);font-style:normal">Ulft</em></div>
+<p>Fanfare Kunst Na Arbeid — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek. Welkom in Ulft.</p>
+</div>
+<div class="footer-col"><h4>Navigatie</h4><ul><li><a href="#over">Over KNA</a></li><li><a href="#fotos">Foto's</a></li><li><a href="#activiteiten">Activiteiten</a></li><li><a href="#agenda">Agenda</a></li><li><a href="#onderwijs">Muziekonderwijs</a></li></ul></div>
+<div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:info@kna-ulft.nl">info@kna-ulft.nl</a></li><li><a href="https://www.kna-ulft.nl">www.kna-ulft.nl</a></li><li><a href="https://www.facebook.com/FanfareKnaUlft">Facebook</a></li><li><a href="https://www.instagram.com/fanfare_kna_ulft/">Instagram</a></li></ul></div>
+<div class="footer-col"><h4>Locatie</h4><ul><li>Clubgebouw 'de Key'</li><li>Frank Daamenstraat 39a</li><li>7071 AV Ulft</li><li>Maandag 19:30–21:30</li></ul></div>
+</div>
+<div class="footer-bottom"><span>&copy; 2026 Fanfare KNA Ulft &middot; Kunst Na Arbeid</span><span>KvK: 40121537 &middot; SBBI-status</span></div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&uarr;</button>
+
+<script>
+// Preloader
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader').classList.add('hidden')},2200)});
+
+// Scroll
+const navbar=document.getElementById('navbar'),backToTop=document.getElementById('backToTop'),scrollProgress=document.getElementById('scrollProgress');
+window.addEventListener('scroll',()=>{
+const sy=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;
+scrollProgress.style.width=(sy/dh*100)+'%';
+navbar.classList.toggle('scrolled',sy>80);
+backToTop.classList.toggle('visible',sy>500);
+revealAll();
+});
+
+// Reveal
+function revealAll(){document.querySelectorAll('.reveal:not(.active)').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('active')})}
+revealAll();
+
+// Count up
+let counted=false;
+function countUp(){if(counted)return;const s=document.querySelector('.stats');if(!s||s.getBoundingClientRect().top>window.innerHeight)return;counted=true;document.querySelectorAll('.stat-number[data-target]').forEach(el=>{const t=+el.dataset.target,dur=2000,st=Date.now();(function tick(){const p=Math.min((Date.now()-st)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*t);p<1?requestAnimationFrame(tick):el.textContent=t})()})}
+window.addEventListener('scroll',countUp);
+
+// Music toggle
+let musicPlaying=true;
+const viz=document.getElementById('visualizer');
+viz.classList.add('active');
+function toggleMusic(){
+const iframe=document.getElementById('ytPlayer');
+if(musicPlaying){iframe.src=iframe.src.replace('autoplay=1','autoplay=0');viz.classList.remove('active');document.getElementById('musicToggle').textContent='▶';musicPlaying=false}
+else{iframe.src=iframe.src.replace('autoplay=0','autoplay=1');viz.classList.add('active');document.getElementById('musicToggle').textContent='⏸';musicPlaying=true}
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+
+// Mobile menu
+function openMobile(){document.getElementById('mobileMenu').classList.add('open')}
+function closeMobile(){document.getElementById('mobileMenu').classList.remove('open')}
+
+// Lightbox
+function openLightbox(src){document.getElementById('lightboxImg').src=src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+</script>
 </body>
 </html>
