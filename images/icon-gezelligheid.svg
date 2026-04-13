@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Bierglazen prost -->
+  <path d="M14 20 L14 44 Q14 50 20 50 L24 50 Q30 50 30 44 L30 20"/>
+  <path d="M34 20 L34 44 Q34 50 40 50 L44 50 Q50 50 50 44 L50 20"/>
+  <path d="M14 20 L50 20" stroke="#dc2626"/>
+  <line x1="10" y1="32" x2="14" y2="32"/>
+  <line x1="30" y1="32" x2="34" y2="32"/>
+  <line x1="50" y1="32" x2="54" y2="32"/>
+  <!-- Klinkende glazen -->
+  <path d="M26 14 Q32 10 38 14" stroke="#dc2626" stroke-dasharray="2 2"/>
+</svg>
