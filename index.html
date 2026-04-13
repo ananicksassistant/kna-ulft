@@ -189,6 +189,18 @@ section{padding:7rem 4rem}
 .edu-card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.4rem}
 .edu-card-text{color:var(--muted);font-size:.92rem;line-height:1.65}
 
+/* VIDEOS */
+.videos{padding:6rem 2rem;background:var(--offw)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem;margin-bottom:1rem}
+.video-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);transition:transform .3s,box-shadow .3s}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.video-wrapper{position:relative;padding-bottom:56.25%;background:#000}
+.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.video-card h4{font-family:'Playfair Display',serif;margin:1rem 1rem .25rem;font-size:1.1rem}
+.video-card p{margin:0 1rem 1rem;color:var(--muted);font-size:.9rem}
+.videos-header{text-align:center;margin-bottom:2.5rem}
+.videos-subtitle{color:var(--muted);margin-top:.5rem;font-size:1.05rem}
+
 /* SIGNUP */
 .signup{background:linear-gradient(135deg,var(--blue) 0%,#1e40af 100%);display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:7rem 4rem}
 .signup-text{color:rgba(255,255,255,.8);line-height:1.85;margin-bottom:2rem}
@@ -229,7 +241,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:5rem 4rem 2rem}
 
 /* RESPONSIVE */
 @media(max-width:1024px){.hero{min-height:85vh}.about,.education,.signup{grid-template-columns:1fr}.about-photos{display:none}.activity-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2)::after{display:none}.agenda-item{grid-template-columns:70px 1fr}.agenda-tag{display:none}.footer-grid{grid-template-columns:1fr 1fr}.photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}.music-bar{padding:1rem 2rem;gap:1rem}}
-@media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}section,.about,.education,.signup,.activities,.agenda{padding:4rem 1.5rem}.hero-content{padding:1.5rem}.activity-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem}.form-row{flex-direction:column}.photo-grid{grid-template-columns:1fr 1fr;gap:.5rem}.footer-grid{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr}.photo-card{min-height:200px}.music-bar{flex-direction:column;gap:.5rem;padding:.8rem 1rem}}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}section,.about,.education,.signup,.activities,.agenda,.videos{padding:4rem 1.5rem}.video-grid{grid-template-columns:1fr}.hero-content{padding:1.5rem}.activity-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem}.form-row{flex-direction:column}.photo-grid{grid-template-columns:1fr 1fr;gap:.5rem}.footer-grid{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr}.photo-card{min-height:200px}.music-bar{flex-direction:column;gap:.5rem;padding:.8rem 1rem}}
 </style>
 </head>
 <body>
@@ -250,6 +262,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:5rem 4rem 2rem}
 <button class="mobile-menu-close" onclick="closeMobile()">&times;</button>
 <a href="#over" onclick="closeMobile()">Over ons</a>
 <a href="#fotos" onclick="closeMobile()">Foto's</a>
+<a href="#videos" onclick="closeMobile()">Video's</a>
 <a href="#activiteiten" onclick="closeMobile()">Activiteiten</a>
 <a href="#agenda" onclick="closeMobile()">Agenda</a>
 <a href="#onderwijs" onclick="closeMobile()">Onderwijs</a>
@@ -271,6 +284,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:5rem 4rem 2rem}
 <ul class="nav-links">
 <li><a href="#over">Over ons</a></li>
 <li><a href="#fotos">Foto's</a></li>
+<li><a href="#videos">Video's</a></li>
 <li><a href="#activiteiten">Activiteiten</a></li>
 <li><a href="#agenda">Agenda</a></li>
 <li><a href="#onderwijs">Onderwijs</a></li>
@@ -437,6 +451,44 @@ Fanfare Kunst Na Arbeid Ulft
 </div>
 </section>
 
+<!-- Videos -->
+<section class="videos" id="videos">
+<div class="container">
+<div class="videos-header">
+<span class="section-label reveal">Video's</span>
+<h2 class="section-title reveal rd1">Luister &amp; beleef</h2>
+<p class="videos-subtitle reveal rd2">Fragmenten uit ons 100-jarig jubileumconcert met Ellen ten Damme en meer.</p>
+</div>
+<div class="video-grid">
+<div class="video-card reveal">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/zUkK7QrDLYw" title="100 jaar KNA Ulft — Hunchback of the Notre Dame" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Hunchback of the Notre Dame</h4><p>Opening van het jubileumconcert</p>
+</div>
+<div class="video-card reveal rd1">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/SZyZMjkbyZE" title="Koningin van Frankrijk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Koningin van Frankrijk</h4><p>Met Ellen ten Damme</p>
+</div>
+<div class="video-card reveal rd2">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/PejpZ5lvmPM" title="Mac the Knife" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Mac the Knife</h4><p>KNA Ulft solo</p>
+</div>
+<div class="video-card reveal rd3">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/5JGTAcaphnU" title="Sous le ciel de Paris" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Sous le ciel de Paris</h4><p>Met Ellen ten Damme</p>
+</div>
+<div class="video-card reveal rd4">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/9ysHoyKUo2A" title="Shaffy Medley" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Shaffy Medley</h4><p>KNA Ulft solo</p>
+</div>
+<div class="video-card reveal rd5">
+<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/N4o6hhvlWiE" title="Alors on danse" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<h4>Alors on danse</h4><p>Grand finale met Ellen ten Damme</p>
+</div>
+</div>
+<a href="https://www.youtube.com/@fanfarekunstnaarbeid8546" target="_blank" rel="noopener" class="btn-glow reveal" style="margin-top:2rem;display:inline-block">Bekijk alle video's op YouTube &rarr;</a>
+</div>
+</section>
+
 <!-- Signup -->
 <section class="signup" id="aanmelden">
 <div>
@@ -465,7 +517,7 @@ Fanfare Kunst Na Arbeid Ulft
 <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--white)">KNA <em style="color:var(--glow);font-style:normal">Ulft</em></div>
 <p>Fanfare Kunst Na Arbeid — al meer dan 100 jaar de gezelligste fanfare van de Achterhoek. Welkom in Ulft.</p>
 </div>
-<div class="footer-col"><h4>Navigatie</h4><ul><li><a href="#over">Over KNA</a></li><li><a href="#fotos">Foto's</a></li><li><a href="#activiteiten">Activiteiten</a></li><li><a href="#agenda">Agenda</a></li><li><a href="#onderwijs">Muziekonderwijs</a></li></ul></div>
+<div class="footer-col"><h4>Navigatie</h4><ul><li><a href="#over">Over KNA</a></li><li><a href="#fotos">Foto's</a></li><li><a href="#videos">Video's</a></li><li><a href="#activiteiten">Activiteiten</a></li><li><a href="#agenda">Agenda</a></li><li><a href="#onderwijs">Muziekonderwijs</a></li></ul></div>
 <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:info@kna-ulft.nl">info@kna-ulft.nl</a></li><li><a href="https://www.kna-ulft.nl">www.kna-ulft.nl</a></li><li><a href="https://www.facebook.com/FanfareKnaUlft">Facebook</a></li><li><a href="https://www.instagram.com/fanfare_kna_ulft/">Instagram</a></li></ul></div>
 <div class="footer-col"><h4>Locatie</h4><ul><li>Clubgebouw 'de Key'</li><li>Frank Daamenstraat 39a</li><li>7071 AV Ulft</li><li>Maandag 19:30–21:30</li></ul></div>
 </div>
